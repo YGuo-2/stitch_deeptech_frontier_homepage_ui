@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Design spec is binding
 
-`DEEPTECH-FRONTIER-design-system.md` (project root) is the **authoritative design specification — every change to the site must follow it.** Read the relevant section before editing any page. It supersedes the older `deeptech_frontier/DESIGN.md` (kept only as an archived early draft).
+`DEEPTECH-FRONTIER-design-system.md` (project root) is the **authoritative design specification — every change to the site must follow it.** Read the relevant section before editing any page. It supersedes the older `原始素材/deeptech_frontier/DESIGN.md` (kept only as an archived early draft).
 
 Hard, non-negotiable constraints from that spec:
 - Background is paper-white `#F6F5F1` — **no blue / blue-black fields anywhere** (this is the spec's central tenet: 「蓝是点睛不是底色」).
@@ -28,18 +28,20 @@ These five files are the integrated site. They are copies of the original Stitch
 
 | File | Nav label | Copied from |
 |------|-----------|-------------|
-| `index.html` | 首页 | `deeptech_frontier_homepage_mockup/code.html` |
-| `matrix.html` | 技术矩阵 | `deeptech_frontier_technology_matrix_optimized/code.html` |
-| `explore.html` | 探索前沿 | `deeptech_frontier_explore_the_frontier_fixed/code.html` |
-| `innovations.html` | 创新成果 | `deeptech_frontier_innovations/code.html` |
-| `roadmap.html` | 未来计划 | `deeptech_frontier_future_roadmap/code.html` |
+| `index.html` | 首页 | `原始素材/deeptech_frontier_homepage_mockup/code.html` |
+| `matrix.html` | 技术矩阵 | `原始素材/deeptech_frontier_technology_matrix_optimized/code.html` |
+| `explore.html` | 探索前沿 | `原始素材/deeptech_frontier_explore_the_frontier_fixed/code.html` |
+| `innovations.html` | 创新成果 | `原始素材/deeptech_frontier_innovations/code.html` |
+| `roadmap.html` | 未来计划 | `原始素材/deeptech_frontier_future_roadmap/code.html` |
 
 The top nav appears on every page with the same five items; each page highlights its own item as "active" using a per-page style (see the active-marker note below). Only the five nav `<a href>`s point to real files — all other `href="#"` links (footer, body links) are still placeholders by design.
 
 ### Original Stitch sources (archive) — do not treat as live
 
-- `deeptech_frontier/DESIGN.md` — the canonical design system spec (colors, typography, spacing, component rules). The source of truth for design intent.
-- `deeptech_frontier_homepage_mockup/`, `deeptech_frontier_technology_matrix_optimized/`, `deeptech_frontier_explore_the_frontier_fixed/`, `deeptech_frontier_innovations/`, `deeptech_frontier_future_roadmap/` — each holds the original `code.html` plus a `screen.png` reference render.
+All six original Stitch export directories live under `原始素材/` (gitignored — local only, not published):
+
+- `原始素材/deeptech_frontier/DESIGN.md` — an archived early design draft (superseded by the root `DEEPTECH-FRONTIER-design-system.md`).
+- `原始素材/deeptech_frontier_homepage_mockup/`, `原始素材/deeptech_frontier_technology_matrix_optimized/`, `原始素材/deeptech_frontier_explore_the_frontier_fixed/`, `原始素材/deeptech_frontier_innovations/`, `原始素材/deeptech_frontier_future_roadmap/` — each holds the original `code.html` plus a `screen.png` reference render.
 
 When editing a page, treat the matching `screen.png` in its source directory as the visual target. If you change design (not just links), keep the root file and its archived `code.html` in sync, or note the divergence.
 
