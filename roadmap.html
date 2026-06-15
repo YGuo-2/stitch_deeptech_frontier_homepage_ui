@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>未来计划 | DEEPTECH FRONTIER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for minimalist look */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #fdf8f8; }
+        ::-webkit-scrollbar-thumb { background: #c7c6ca; }
+        
+        .timeline-spine {
+            width: 1px;
+            background: linear-gradient(to bottom, #77777b 0%, #77777b 100%);
+            background-size: 1px 8px;
+            background-repeat: repeat-y;
+        }
+        
+        .cyan-marker {
+            box-shadow: 0 0 12px rgba(0, 184, 212, 0.4);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#77777b",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "surface-container-low": "#f7f3f2",
+                        "tertiary-fixed": "#e7e2dd",
+                        "surface": "#fdf8f8",
+                        "secondary-fixed": "#e3e2e7",
+                        "on-tertiary-fixed-variant": "#494644",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fdf8f8",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#e5e2e3",
+                        "on-tertiary-container": "#868380",
+                        "on-surface": "#1c1b1b",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#474647",
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#5f5e5f",
+                        "secondary-container": "#e0dfe4",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "outline-variant": "#c7c6ca",
+                        "surface-container": "#f1edec",
+                        "on-primary-fixed": "#1c1b1c",
+                        "on-tertiary-fixed": "#1d1b19",
+                        "on-primary-container": "#858384",
+                        "inverse-on-surface": "#f4f0ef",
+                        "secondary-fixed-dim": "#c7c6cb",
+                        "on-secondary-container": "#626267",
+                        "surface-dim": "#ddd9d9",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1d1b19",
+                        "on-surface-variant": "#46464a",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "surface-container-highest": "#e5e2e1",
+                        "primary-container": "#1c1b1c",
+                        "inverse-primary": "#c8c6c7",
+                        "background": "#fdf8f8",
+                        "on-error-container": "#93000a",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#cac6c2",
+                        "secondary": "#5e5e63",
+                        "surface-container-high": "#ebe7e7",
+                        "error": "#ba1a1a",
+                        "cyan-accent": "#00B8D4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "columns": "12",
+                        "gutter": "24px",
+                        "margin-mobile": "24px",
+                        "unit": "8px",
+                        "margin-desktop": "96px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "display-xl": ["Hanken Grotesk"],
+                        "numeral-md": ["JetBrains Mono"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "display-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-cyan-accent selection:text-white">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop h-16 flex items-center justify-between">
+<div class="font-headline-md text-headline-md tracking-tighter text-primary">DEEPTECH FRONTIER</div>
+<div class="hidden md:flex items-center gap-8 h-full">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="index.html">首页</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="matrix.html">技术矩阵</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="explore.html">探索前沿</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="innovations.html">创新成果</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-cyan-accent pb-1 h-full flex items-center" href="roadmap.html">未来计划</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="cursor-pointer transition-opacity duration-200 active:opacity-70 font-label-caps text-label-caps text-primary">SUBSCRIBE</div>
+<span class="material-symbols-outlined cursor-pointer text-primary">search</span>
+</div>
+</div>
+</nav>
+<main class="max-w-screen-2xl mx-auto px-margin-desktop pt-24 pb-48">
+<!-- Masthead -->
+<header class="grid grid-cols-12 gap-gutter mb-24">
+<div class="col-span-12 md:col-span-8">
+<div class="font-numeral-md text-numeral-md text-outline mb-4">ROADMAP — 2026 ▸ 2040</div>
+<h1 class="font-display-lg text-display-lg mb-8">未来计划</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+                    面向下一代科技文明的阶段性路线与里程碑。我们致力于通过可预测的技术跃迁，构建一个以深度科技为核心的可持续未来蓝图。
+                </p>
+</div>
+</header><section class="mb-32 border-t border-b border-outline-variant py-12">
+    <div class="relative w-full aspect-[21/9] overflow-hidden">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zq6doYXfV6XMVWepOTueZsC8_oBDHsk9oedwaO9nUT6Vc0rQuJG1gp09TEK3Cdl5gbH1omIp9oFLggIQyNh-SlAAowFKv3vxhm0t9_QaOWX-3no5UWRYaOqlBhwIWDVWx5nrPo3hHG4rLKV1LLDjcqMQMMocDe65mlxZCRIEaA7KrUxPti3Y1uZ4aTGmgexpBsH_FCYBFvNtDDjEMBDL9ljtSfHEJMoh_P_gjdyZ6JgRq52JagWwkijTXZTm7B1KCP58oHMt5QM" alt="Precision-engineered modules representing sequence and progression" class="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-700">
+        <div class="absolute inset-0 pointer-events-none border border-outline-variant/30"></div>
+    </div>
+    <div class="mt-4 flex justify-between items-baseline opacity-60">
+        <span class="font-label-caps text-[10px] tracking-widest">VISUAL ANCHOR // SEQUENCE 01</span>
+        <span class="font-numeral-md text-[10px]">REF: IMG_9_MODULAR_PROGRESSION</span>
+    </div>
+</section>
+<!-- Horizon Bar -->
+<section class="mb-32">
+<div class="relative w-full h-12 flex items-end">
+<!-- Main Hairline -->
+<div class="absolute bottom-0 left-0 w-full h-[1px] bg-outline-variant"></div>
+<!-- Tick Labels & Markers -->
+<div class="relative w-full flex justify-between px-0">
+<!-- NOW -->
+<div class="flex flex-col items-center">
+<span class="font-numeral-md text-[10px] text-cyan-accent mb-2">NOW</span>
+<div class="w-2 h-2 rounded-full bg-cyan-accent cyan-marker translate-y-1/2"></div>
+</div>
+<!-- 2030 -->
+<div class="flex flex-col items-center">
+<span class="font-numeral-md text-[10px] text-outline mb-2">2030</span>
+<div class="w-[1px] h-2 bg-outline-variant translate-y-1/2"></div>
+</div>
+<!-- 2035 -->
+<div class="flex flex-col items-center">
+<span class="font-numeral-md text-[10px] text-outline mb-2">2035</span>
+<div class="w-[1px] h-2 bg-outline-variant translate-y-1/2"></div>
+</div>
+<!-- 2040 -->
+<div class="flex flex-col items-center">
+<span class="font-numeral-md text-[10px] text-outline mb-2">2040</span>
+<div class="w-[1px] h-2 bg-outline-variant translate-y-1/2"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Vertical Timeline -->
+<section class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 md:col-span-10 lg:col-span-8 relative">
+<!-- The Spine -->
+<div class="absolute left-[59px] top-0 bottom-0 timeline-spine hidden md:block"></div>
+<!-- Milestone 1 -->
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="hidden md:flex justify-end pr-8 pt-1">
+<span class="font-numeral-md text-numeral-md text-on-surface">2026</span>
+</div>
+<div class="relative pl-12 md:pl-0">
+<!-- Node Dot -->
+<div class="absolute -left-[64px] top-3 w-2.5 h-2.5 rounded-full border-2 border-cyan-accent bg-surface z-10 hidden md:block group-hover:bg-cyan-accent transition-colors duration-300"></div>
+<div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+<h3 class="font-headline-md text-[30px]">近地轨道量子骨干网 <span class="font-label-caps text-label-caps text-secondary ml-2">QUANTUM BACKBONE</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 border border-cyan-accent text-[9px] font-label-caps text-cyan-accent tracking-widest uppercase">In Progress</span>
+</div>
+<p class="font-body-md text-secondary leading-relaxed max-w-xl">
+                            建立覆盖全球主要科研节点的卫星量子通信链路。实现跨大洲的无损纠缠分发，为第二代量子互联网奠定物理层基础。
+                        </p>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="hidden md:flex justify-end pr-8 pt-1">
+<span class="font-numeral-md text-numeral-md text-on-surface">2028</span>
+</div>
+<div class="relative pl-12 md:pl-0">
+<div class="absolute -left-[64px] top-3 w-2.5 h-2.5 rounded-full border-2 border-cyan-accent bg-surface z-10 hidden md:block group-hover:bg-cyan-accent transition-colors duration-300"></div>
+<div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+<h3 class="font-headline-md text-[30px]">生物碳中和反应堆系统 <span class="font-label-caps text-label-caps text-secondary ml-2">BIO-CARBON REACTOR</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 border border-outline text-[9px] font-label-caps text-secondary tracking-widest uppercase">Planned</span>
+</div>
+<p class="font-body-md text-secondary leading-relaxed max-w-xl">
+                            通过合成生物学改造的高效固碳菌群，在工业园区实现大规模二氧化碳捕集与直接甲醇转化。
+                        </p>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="hidden md:flex justify-end pr-8 pt-1">
+<span class="font-numeral-md text-numeral-md text-on-surface">2031</span>
+</div>
+<div class="relative pl-12 md:pl-0">
+<div class="absolute -left-[64px] top-3 w-2.5 h-2.5 rounded-full border-2 border-cyan-accent bg-surface z-10 hidden md:block group-hover:bg-cyan-accent transition-colors duration-300"></div>
+<div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+<h3 class="font-headline-md text-[30px]">通用具身智能大规模部署 <span class="font-label-caps text-label-caps text-secondary ml-2">EMBODIED AGI</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 border border-outline text-[9px] font-label-caps text-secondary tracking-widest uppercase">Planned</span>
+</div>
+<p class="font-body-md text-secondary leading-relaxed max-w-xl">
+                            自主避障与自适应复杂环境任务的仿生形态智能体进入制造、物流及灾害响应等高危高负荷领域。
+                        </p>
+</div>
+</div>
+<!-- Milestone 4 -->
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="hidden md:flex justify-end pr-8 pt-1">
+<span class="font-numeral-md text-numeral-md text-on-surface">2035</span>
+</div>
+<div class="relative pl-12 md:pl-0">
+<div class="absolute -left-[64px] top-3 w-2.5 h-2.5 rounded-full border-2 border-cyan-accent bg-surface z-10 hidden md:block group-hover:bg-cyan-accent transition-colors duration-300"></div>
+<div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+<h3 class="font-headline-md text-[30px]" style="transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);">全固态磁约束聚变原型机 <span class="font-label-caps text-label-caps text-secondary ml-2">ITERATION DELTA</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 border border-outline-variant text-[9px] font-label-caps text-outline tracking-widest uppercase">Exploratory</span>
+</div>
+<p class="font-body-md text-secondary leading-relaxed max-w-xl">
+                            实现连续运行时长突破3600秒，Q值稳定大于15的商业前置验证，标志着无限清洁能源时代的曙光。
+                        </p>
+</div>
+</div>
+<!-- Milestone 5 -->
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-0 relative group">
+<div class="hidden md:flex justify-end pr-8 pt-1">
+<span class="font-numeral-md text-numeral-md text-on-surface">2040</span>
+</div>
+<div class="relative pl-12 md:pl-0">
+<div class="absolute -left-[64px] top-3 w-2.5 h-2.5 rounded-full border-2 border-cyan-accent bg-surface z-10 hidden md:block group-hover:bg-cyan-accent transition-colors duration-300"></div>
+<div class="flex flex-col md:flex-row md:items-baseline gap-4 mb-4">
+<h3 class="font-headline-md text-[30px]">深空自主生态殖民模组 <span class="font-label-caps text-label-caps text-secondary ml-2">ASTRO-COLONY</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 border border-outline-variant text-[9px] font-label-caps text-outline tracking-widest uppercase">Exploratory</span>
+</div>
+<p class="font-body-md text-secondary leading-relaxed max-w-xl">
+                            第一批自闭环地外生存系统在火星或月球轨道完成初步测试，人类进入行星际文明的正式扩张期。
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Annotation Layer -->
+<div class="mt-32 pt-12 border-t border-outline-variant grid grid-cols-12 gap-gutter opacity-60">
+<div class="col-span-12 md:col-span-4">
+<div class="font-label-caps text-[10px] tracking-widest mb-2">PRECISION INDEX</div>
+<div class="font-numeral-md text-[12px]">± 18 MONTHS VAR / CONFIDENCE 85%</div>
+</div>
+<div class="col-span-12 md:col-span-4">
+<div class="font-label-caps text-[10px] tracking-widest mb-2">DATA SOURCE</div>
+<div class="font-numeral-md text-[12px]">FRONTIER PREDICTIVE ENGINE V4.0</div>
+</div>
+<div class="col-span-12 md:col-span-4 flex justify-end">
+<div class="font-numeral-md text-[12px] uppercase">TS: 2024-Q3 // REF: DTP-RMAP-09</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-24 border-t border-outline-variant bg-surface">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md text-primary">DEEPTECH FRONTIER</div>
+<div class="font-label-caps text-label-caps text-outline">© 2024 DEEPTECH FRONTIER. ALL RIGHTS RESERVED.</div>
+</div>
+<div class="flex gap-12 mt-8 md:mt-0">
+<div class="flex flex-col gap-3">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">ARCHIVE</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">PRIVACY</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">TERMS</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">CONTACT</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for timeline hover
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.querySelector('.font-headline-md').classList.add('text-cyan-accent');
+                item.querySelector('.font-headline-md').classList.add('translate-x-2');
+                item.querySelector('.font-headline-md').classList.remove('transition-all');
+                item.querySelector('.font-headline-md').style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('.font-headline-md').classList.remove('text-cyan-accent');
+                item.querySelector('.font-headline-md').classList.remove('translate-x-2');
+            });
+        });
+    </script>
+
+
+</body></html>

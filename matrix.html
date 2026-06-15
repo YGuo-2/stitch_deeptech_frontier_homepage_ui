@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>技术矩阵 — DEEPTECH FRONTIER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --cyan-accent: #16B9A6;
+            --ink-black: #0B0B0C;
+            --warm-paper: #F6F5F1;
+            --hairline: #E3E1DB;
+        }
+        body {
+            background-color: var(--warm-paper);
+            color: var(--ink-black);
+            -webkit-font-smoothing: antialiased;
+        }
+        .grid-hairline-x { border-top: 1px solid var(--hairline); }
+        .grid-hairline-y { border-left: 1px solid var(--hairline); }
+        .cyan-dot { width: 6px; height: 6px; background-color: var(--cyan-accent); border-radius: 50%; display: inline-block; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline": "#77777b",
+                        "surface": "#F6F5F1",
+                        "on-surface": "#0B0B0C",
+                        "primary": "#0B0B0C",
+                        "on-background": "#0B0B0C",
+                        "background": "#F6F5F1",
+                        "outline-variant": "#E3E1DB",
+                        "secondary": "#5e5e63",
+                    },
+                    spacing: {
+                        "columns": "12",
+                        "gutter": "24px",
+                        "margin-desktop": "96px",
+                        "unit": "8px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "display-xl": ["Hanken Grotesk"],
+                        "numeral-md": ["JetBrains Mono"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-xl": ["120px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "numeral-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600" }],
+                        "display-lg": ["96px", { "lineHeight": "90px", "letterSpacing": "-0.03em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-surface z-50 border-b border-outline-variant">
+<nav class="max-w-screen-2xl mx-auto px-margin-desktop h-16 flex items-center justify-between">
+<div class="font-headline-md text-headline-md tracking-tighter text-primary">DEEPTECH FRONTIER</div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="index.html">首页</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-[#16B9A6] pb-1" href="matrix.html">技术矩阵</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="explore.html">探索前沿</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="innovations.html">创新成果</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="roadmap.html">未来计划</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-label-caps text-label-caps px-6 py-2 border border-primary hover:bg-primary hover:text-surface transition-all duration-300">SUBSCRIBE</button>
+</div>
+</nav>
+</header>
+<main class="max-w-screen-2xl mx-auto px-margin-desktop pt-24">
+<!-- Masthead -->
+<section class="mb-24">
+<div class="font-numeral-md text-numeral-md uppercase tracking-widest mb-6 flex items-center gap-3">
+<span class="text-[#16B9A6]">●</span> TECHNOLOGY MATRIX — 09 DOMAINS / INDEX 2026
+            </div>
+<h1 class="font-display-lg text-display-lg mb-8">技术矩阵</h1>
+<p class="max-w-2xl font-body-md text-secondary text-body-lg">
+                九大前沿技术领域的结构化图谱，按成熟度与方向归类。DEEPTECH FRONTIER 通过对全球研发投入、专利增长及工程落地能力的实时监控，构建出这一指导未来十年的技术演进索引。
+            </p>
+</section>
+<!-- Featured Matrix (Asymmetric Composition) -->
+<section class="mb-32">
+<div class="grid grid-cols-1 md:grid-cols-2 border-outline-variant border-b border-r">
+<!-- Feature 01: AI (Staggered/Large) -->
+<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group">
+<div>
+<div class="flex justify-between items-start mb-12">
+<span class="font-numeral-md text-numeral-md text-secondary">01 <span class="cyan-dot ml-2"></span></span>
+<span class="font-numeral-md text-sm text-[#16B9A6]">88% MATURITY</span>
+</div>
+<h3 class="text-5xl font-bold leading-tight mb-2">人工智能</h3>
+<p class="font-numeral-md text-xs text-secondary mb-12">基础架构与自进化演进</p>
+</div>
+<div class="overflow-hidden aspect-video mb-8">
+<img alt="AI Neural Lattice" class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClmVnsVNaQU2htXGXajntR1lUZrCp3fTAZo6Lz8VY-EQDYB62O2tlayxsO3R9G6wiWly26GvVr8HhdnrTp5Sxcm7qn1VbxmF_CkAgNyxqfopacr9A7_R1_sPOx7s_VWxNs6Rk8VNGTUddhuYjkxMwgXPSTKqg_sQjOjCCo0RVuWjEMnm4AhpP7cgyC31FEYjbpWlRPMB1F27rGQMwOk3pzyGdkGYraBzYIeBdxsYzxQkcE6hOMYpCivvgl89cBv71nI4nFROoUIHM"/>
+</div>
+<div class="font-label-caps text-label-caps text-secondary">ARTIFICIAL INTELLIGENCE</div>
+</div>
+<!-- Feature 02: Quantum (Staggered/Large) -->
+<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group">
+<div>
+<div class="flex justify-between items-start mb-12">
+<span class="font-numeral-md text-numeral-md text-secondary">02 <span class="cyan-dot ml-2"></span></span>
+<span class="font-numeral-md text-sm text-[#16B9A6]">39% MATURITY</span>
+</div>
+<h3 class="text-5xl font-bold leading-tight mb-2">量子计算</h3>
+<p class="font-numeral-md text-xs text-secondary mb-12">相干性边界与量子纠缠控制</p>
+</div>
+<div class="overflow-hidden aspect-video mb-8">
+<img alt="Quantum Computing Prisms" class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR--ZeNqZGug6D3N8oqFTow-TCmZMFjkOoE6peQNTFfPC7yKYoXBy4XbNQv8z2qFIFYETaUCvqMmtojcRVVwqrSnIp3A4EDs4HHxuT0f16NceU7zBva_lfCwKSSOkWvqey0Ymi5_oMc33bBsGQq73zs8quyZtf36XALs20APh-Xvmf4ugfEh2R1UkGMV2y1Z4jsF5ugiYNKhQRoGG3ONpE2ZhMhvFDg6Ljz-N9EqpsUfqEGWnqokDmhHZJgGr3r_0q9BvQhUCXZF4"/>
+</div>
+<div class="font-label-caps text-label-caps text-secondary">QUANTUM COMPUTING</div>
+</div>
+</div>
+<!-- Compact Grid for remaining 7 -->
+<div class="grid grid-cols-1 md:grid-cols-4 border-r border-b border-outline-variant">
+<!-- Cell 03 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">03</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR →</span>
+</div>
+<h4 class="font-bold mb-4">深空探索</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●○○</div>
+</div>
+<!-- Cell 04 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">04</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
+</div>
+<h4 class="font-bold mb-4">未来能源</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●●○</div>
+</div>
+<!-- Cell 05 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">05</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR ↗</span>
+</div>
+<h4 class="font-bold mb-4">智能制造</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●●●</div>
+</div>
+<!-- Cell 06 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">06</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
+</div>
+<h4 class="font-bold mb-4">新材料</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●○○</div>
+</div>
+<!-- Cell 07 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">07</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR ↗</span>
+</div>
+<h4 class="font-bold mb-4">脑机接口</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●○○○○</div>
+</div>
+<!-- Cell 08 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">08</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR →</span>
+</div>
+<h4 class="font-bold mb-4">合成生物</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●○○○</div>
+</div>
+<!-- Cell 09 -->
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-6">
+<span class="font-numeral-md text-xs text-secondary">09</span>
+<span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
+</div>
+<h4 class="font-bold mb-4">空间计算</h4>
+<div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●●○</div>
+</div>
+<!-- Empty spacer cell for alignment if needed -->
+<div class="p-8 border-l border-t border-outline-variant bg-surface-container-lowest/30"></div>
+</div>
+</section>
+<!-- Breathing Pause -->
+<section class="py-48 flex flex-col items-center text-center">
+<h2 class="text-[32px] font-bold leading-relaxed mb-6 max-w-4xl">
+                “技术不是孤立的突破，而是九条曲线在同一时间轴上的交汇。”
+            </h2>
+<p class="font-numeral-md text-label-caps text-secondary tracking-widest">— DEEPTECH FRONTIER EDITORIAL</p>
+</section>
+<!-- Secondary Status Log (Appendix Style) -->
+<section class="mb-48">
+<h2 class="font-label-caps text-label-caps text-secondary mb-12 opacity-50">DETAILED STATUS LOG / 技术状态日志</h2>
+<div class="w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-primary/20">
+<th class="pb-4 font-label-caps text-[10px] text-secondary uppercase">Domain</th>
+<th class="pb-4 font-label-caps text-[10px] text-secondary uppercase">Maturity</th>
+<th class="pb-4 font-label-caps text-[10px] text-secondary uppercase text-center">Vector</th>
+<th class="pb-4 font-label-caps text-[10px] text-secondary uppercase text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-numeral-md text-sm">
+<tr class="border-b border-outline-variant/30 hover:bg-white transition-colors">
+<td class="py-8 text-primary">GEN-AI / 基础模型</td>
+<td class="py-8">88%</td>
+<td class="py-8 text-center text-secondary">EXPEND</td>
+<td class="py-8 text-right flex items-center justify-end gap-2">
+<span class="cyan-dot"></span> <span class="font-label-caps text-[10px] text-primary">ACTIVE</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white transition-colors">
+<td class="py-8 text-primary">NEUROLINK / 植入式芯片</td>
+<td class="py-8">12%</td>
+<td class="py-8 text-center text-secondary">ACCEL</td>
+<td class="py-8 text-right flex items-center justify-end gap-2">
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span> <span class="font-label-caps text-[10px] text-secondary">RESEARCH</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white transition-colors">
+<td class="py-8 text-primary">ORBITAL / 低轨卫星网</td>
+<td class="py-8">64%</td>
+<td class="py-8 text-center text-secondary">STABLE</td>
+<td class="py-8 text-right flex items-center justify-end gap-2">
+<span class="cyan-dot"></span> <span class="font-label-caps text-[10px] text-primary">SCALING</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white transition-colors">
+<td class="py-8 text-primary">HELION / 受控核聚变</td>
+<td class="py-8">08%</td>
+<td class="py-8 text-center text-secondary">BREAKTHROUGH</td>
+<td class="py-8 text-right flex items-center justify-end gap-2">
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span> <span class="font-label-caps text-[10px] text-secondary">RESEARCH</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-white transition-colors">
+<td class="py-8 text-primary">LITHIUM+ / 固态电池组</td>
+<td class="py-8">71%</td>
+<td class="py-8 text-center text-secondary">OPTIMIZE</td>
+<td class="py-8 text-right flex items-center justify-end gap-2">
+<span class="cyan-dot"></span> <span class="font-label-caps text-[10px] text-primary">ACTIVE</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Abstract Grid Visual (Maintained) -->
+<section class="mb-32">
+<div class="flex items-center gap-4 mb-8">
+<span class="font-numeral-md text-label-caps text-secondary uppercase tracking-widest">MATURITY DISTRIBUTION — 09 DOMAINS</span>
+<div class="h-[1px] flex-grow bg-[#16B9A6]"></div>
+</div>
+<div class="w-full h-2 flex border-l border-outline-variant">
+<div class="flex-1 bg-[#6F6F74] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#E3E1DB] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#6F6F74] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#16B9A6] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#E3E1DB] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#E3E1DB] border-r border-outline-variant"></div>
+</div>
+<div class="grid grid-cols-9 mt-4">
+<span class="font-numeral-md text-[10px] text-secondary text-center">GEN-AI</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">NEUROLINK</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">ORBITAL</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">HELION</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">LITHIUM+</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">SYN-BIO</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">SPACE-C</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">QUANTUM</span>
+<span class="font-numeral-md text-[10px] text-secondary text-center">AGENT-S</span>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-24 border-t border-outline-variant bg-surface">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="flex flex-col gap-6">
+<div class="font-headline-md text-headline-md text-primary">DEEPTECH FRONTIER</div>
+<div class="font-label-caps text-label-caps text-secondary">© 2024 DEEPTECH FRONTIER. ALL RIGHTS RESERVED.</div>
+</div>
+<div class="flex gap-12">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-primary mb-2">INDEX</span>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline" href="#">ARCHIVE</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline" href="#">PRIVACY</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-primary mb-2">LEGAL</span>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline" href="#">TERMS</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline" href="#">CONTACT</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.querySelector('.cyan-dot')?.classList.add('scale-150');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.querySelector('.cyan-dot')?.classList.remove('scale-150');
+            });
+        });
+    </script>
+</body></html>

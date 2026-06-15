@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#77777b",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "surface-container-low": "#f7f3f2",
+                    "tertiary-fixed": "#e7e2dd",
+                    "surface": "#fdf8f8",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-tertiary-fixed-variant": "#494644",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fdf8f8",
+                    "inverse-surface": "#313030",
+                    "primary-fixed": "#e5e2e3",
+                    "on-tertiary-container": "#868380",
+                    "on-surface": "#1c1b1b",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474647",
+                    "on-background": "#1c1b1b",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#5f5e5f",
+                    "secondary-container": "#e0dfe4",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "outline-variant": "#c7c6ca",
+                    "surface-container": "#f1edec",
+                    "on-primary-fixed": "#1c1b1c",
+                    "on-tertiary-fixed": "#1d1b19",
+                    "on-primary-container": "#858384",
+                    "inverse-on-surface": "#f4f0ef",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "on-secondary-container": "#626267",
+                    "surface-dim": "#ddd9d9",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#1d1b19",
+                    "on-surface-variant": "#46464a",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "surface-container-highest": "#e5e2e1",
+                    "primary-container": "#1c1b1c",
+                    "inverse-primary": "#c8c6c7",
+                    "background": "#fdf8f8",
+                    "on-error-container": "#93000a",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#cac6c2",
+                    "secondary": "#5e5e63",
+                    "surface-container-high": "#ebe7e7",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "columns": "12",
+                    "gutter": "24px",
+                    "margin-mobile": "24px",
+                    "unit": "8px",
+                    "margin-desktop": "96px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "display-xl": ["Hanken Grotesk"],
+                    "numeral-md": ["JetBrains Mono"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf8f8;
+            color: #1c1b1b;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hairline-y { border-left: 1px solid #e5e2e1; }
+        .hairline-x { border-top: 1px solid #e5e2e1; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .duotone-plate {
+            filter: grayscale(1) contrast(1.1);
+            transition: filter 0.5s ease;
+        }
+        .duotone-plate:hover {
+            filter: grayscale(0.2) contrast(1.05) hue-rotate(180deg);
+        }
+        .custom-active {
+            border-bottom: 2px solid #00E5FF;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="w-full top-0 sticky bg-surface border-b border-outline-variant z-50">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop h-16 flex items-center justify-between">
+<div class="font-headline-md text-headline-md tracking-tighter text-primary">DEEPTECH FRONTIER</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="index.html">首页</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="matrix.html">技术矩阵</a>
+<a class="font-label-caps text-label-caps text-primary custom-active transition-colors" href="explore.html">探索前沿</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="innovations.html">创新成果</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="roadmap.html">未来计划</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer">search</span>
+<button class="font-label-caps text-label-caps border border-primary px-6 py-2 hover:bg-primary hover:text-surface transition-all">SUBSCRIBE</button>
+</div>
+</div>
+</nav>
+<main class="max-w-screen-2xl mx-auto px-margin-desktop">
+<!-- Masthead -->
+<header class="mt-24 mb-32 grid grid-cols-12 gap-gutter">
+<div class="col-span-12 md:col-span-8">
+<div class="font-numeral-md text-numeral-md text-secondary tracking-widest mb-6">THE FRONTIER — DISPATCHES &amp; RESEARCH</div>
+<h1 class="font-display-lg text-display-lg leading-none mb-8">探索前沿</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-xl">
+                    来自实验室前线的研究手记、深度专题与技术观察。我们追踪那些处于爆发边缘的学科交叉点，记录文明演进的底层代码。
+                </p>
+</div>
+</header>
+<!-- Featured Essay -->
+<section class="grid grid-cols-12 gap-0 border-t border-b border-outline-variant py-20 mb-32">
+<!-- Left 7 cols: Image Plate -->
+<div class="col-span-12 md:col-span-7 pr-gutter border-r border-outline-variant relative">
+<div class="relative overflow-hidden aspect-[16/9] border-t border-b border-outline-variant"><img alt="Precision-engineered abstract object in brushed aluminum and clear glass" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5W6862qHKI3vlZuWduKyZwa5yYS4r3iREza5wUDL6LPZK4xYcB4yE1F9uIVS5IE4C2M9w8kR1YIcsZxOiQUoryKasyNNO8x9bvLzETkt3OLuMdB8FhYkjv1Rd9uxQsJ3X-AnoKo84jhMscXpSJIDi4HgbhRrfIxutTNAo2RXb1ggLEzknrqTnnjoWbipPbwMGwxMO0dvwrlx9w8MAQmCzZrd5lnBRgU1_2ztYjDyJml0fJsjPxmiSN17zGtSijxXdOf9RL_VGVOc"/></div>
+<div class="mt-4 flex justify-between items-start">
+<span class="font-numeral-md text-[10px] tracking-tighter uppercase">FIG.01 — FEATURED DISPATCH</span>
+<span class="font-numeral-md text-[10px] tracking-tighter">REF: QNTM-882-X</span>
+</div>
+</div>
+<!-- Right 5 cols: Content -->
+<div class="col-span-12 md:col-span-5 pl-gutter flex flex-col justify-between py-2 md:py-0">
+<div>
+<div class="font-numeral-md text-numeral-md text-secondary mb-12 flex items-center gap-2">
+<span class="w-12 h-[1px] bg-outline-variant"></span>
+                        QUANTUM / 量子计算
+                    </div>
+<h2 class="font-headline-md text-[40px] leading-[1.1] mb-6">
+                        相干性的边界：<br/>从量子纠缠到通用计算的跨越
+                    </h2>
+<p class="font-body-md text-secondary mb-12">
+                        本研究探讨了超导量子比特在长效相干性控制方面的最新进展，并对未来五年内实现“纠错级”量子优势的路径进行了系统性梳理。
+                    </p>
+</div>
+<div class="pt-8 border-t border-outline-variant flex justify-between items-end">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-secondary">AUTHOR</span>
+<span class="font-label-caps text-label-caps font-bold">DR. ELARA VANCE</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-caps text-[10px] text-secondary">PUBLISHED</span>
+<span class="font-label-caps text-label-caps">OCT 24, 2024</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Article Index -->
+<section class="grid grid-cols-12 gap-0 border-t border-outline-variant">
+<!-- Header Row -->
+<div class="col-span-12 py-8 border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps tracking-[0.3em]">REPORTS ARCHIVE / 研究档案</h3>
+</div>
+<!-- Entries - Two Column Flow -->
+<div class="col-span-12 md:col-span-6 border-r border-outline-variant">
+<!-- Entry 1 -->
+<article class="p-8 border-b border-outline-variant hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.09 / DEEP SPACE</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        深空探索 <span class="font-label-caps text-[10px] text-secondary tracking-widest">DEEP SPACE</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        利用引力透镜技术重构系外行星大气组分的研究报告。
+                    </p>
+</article>
+<!-- Entry 2 -->
+<article class="p-8 border-b border-outline-variant hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.08 / ENERGY</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        未来能源 <span class="font-label-caps text-[10px] text-secondary tracking-widest">FUSION &amp; BEYOND</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        惯性约束核聚变在微型化领域的工程挑战与突破点。
+                    </p>
+</article>
+<!-- Entry 3 -->
+<article class="p-8 border-b border-outline-variant md:border-b-0 hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.07 / BCI</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        脑机接口 <span class="font-label-caps text-[10px] text-secondary tracking-widest">NEURAL LINKAGE</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        非侵入式神经信号解析算法在跨语言沟通中的应用。
+                    </p>
+</article>
+</div>
+<div class="col-span-12 md:col-span-6">
+<!-- Entry 4 -->
+<article class="p-8 border-b border-outline-variant hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.08 / FABRICATION</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        智能制造 <span class="font-label-caps text-[10px] text-secondary tracking-widest">ROBOTICS</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        多模态感知在大规模工业协作机器人群组中的集成。
+                    </p>
+</article>
+<!-- Entry 5 -->
+<article class="p-8 border-b border-outline-variant hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.06 / BIOLOGY</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        合成生物 <span class="font-label-caps text-[10px] text-secondary tracking-widest">GENETIC CODE</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        基于人工固氮回路的合成叶绿体及其生态影响评估。
+                    </p>
+</article>
+<!-- Entry 6 -->
+<article class="p-8 hover:bg-surface-container transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="font-numeral-md text-[12px] text-secondary">24.05 / MATERIALS</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">north_east</span>
+</div>
+<h4 class="font-headline-md text-[22px] mb-2 flex items-baseline gap-2">
+                        新材料 <span class="font-label-caps text-[10px] text-secondary tracking-widest">METAMATERIALS</span>
+</h4>
+<p class="font-body-md text-secondary truncate">
+                        常温超导可能性：自旋极化电流在拓扑绝缘体中的新发现。
+                    </p>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-24 border-t border-outline-variant bg-surface">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="flex flex-col gap-6">
+<div class="font-headline-md text-headline-md text-primary">DEEPTECH FRONTIER</div>
+<p class="font-label-caps text-label-caps text-secondary">© 2024 DEEPTECH FRONTIER. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex gap-12 mt-8 md:mt-0">
+<div class="flex flex-col gap-3">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">ARCHIVE</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">PRIVACY</a>
+</div>
+<div class="flex flex-col gap-3">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">TERMS</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">CONTACT</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for grid lines or hover states
+        document.querySelectorAll('article').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Potential for adding subtle sound or more complex CSS transitions
+            });
+        });
+    </script>
+</body></html>

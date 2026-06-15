@@ -1,0 +1,357 @@
+<!DOCTYPE html><html class="light" lang="zh-CN" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#77777b",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "surface-container-low": "#f7f3f2",
+                    "tertiary-fixed": "#e7e2dd",
+                    "surface": "#fdf8f8",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-tertiary-fixed-variant": "#494644",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fdf8f8",
+                    "inverse-surface": "#313030",
+                    "primary-fixed": "#e5e2e3",
+                    "on-tertiary-container": "#868380",
+                    "on-surface": "#1c1b1b",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#474647",
+                    "on-background": "#1c1b1b",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#5f5e5f",
+                    "secondary-container": "#e0dfe4",
+                    "surface-variant": "#e5e2e1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "outline-variant": "#c7c6ca",
+                    "surface-container": "#f1edec",
+                    "on-primary-fixed": "#1c1b1c",
+                    "on-tertiary-fixed": "#1d1b19",
+                    "on-primary-container": "#858384",
+                    "inverse-on-surface": "#f4f0ef",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "on-secondary-container": "#626267",
+                    "surface-dim": "#ddd9d9",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#1d1b19",
+                    "on-surface-variant": "#46464a",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "surface-container-highest": "#e5e2e1",
+                    "primary-container": "#1c1b1c",
+                    "inverse-primary": "#c8c6c7",
+                    "background": "#fdf8f8",
+                    "on-error-container": "#93000a",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#cac6c2",
+                    "secondary": "#5e5e63",
+                    "surface-container-high": "#ebe7e7",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "columns": "12",
+                    "gutter": "24px",
+                    "margin-mobile": "24px",
+                    "unit": "8px",
+                    "margin-desktop": "96px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "display-xl": ["Hanken Grotesk"],
+                    "numeral-md": ["JetBrains Mono"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .grid-line-v {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #E3E1DB;
+            z-index: 0;
+        }
+        .hairline-b { border-bottom: 1px solid #E3E1DB; }
+        .hairline-r { border-right: 1px solid #E3E1DB; }
+        .cyan-underline { border-bottom: 2px solid #00BCD4; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-on-primary overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-surface z-50 border-b border-outline-variant">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop h-16 flex items-center justify-between">
+<div class="font-headline-md text-headline-md tracking-tighter text-primary">DEEPTECH FRONTIER</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="index.html">首页</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="matrix.html">技术矩阵</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="explore.html">探索前沿</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1" href="innovations.html">创新成果</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="roadmap.html">未来计划</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer">search</span>
+<button class="font-label-caps text-label-caps px-6 py-2 border border-primary hover:bg-primary hover:text-on-primary transition-all">SUBSCRIBE</button>
+</div>
+</div>
+</header>
+<main class="max-w-screen-2xl mx-auto px-margin-desktop pt-24 relative">
+<!-- Visual Grid Reference (Vertical) -->
+<div class="absolute inset-0 pointer-events-none px-margin-desktop opacity-20">
+<div class="flex justify-between h-full">
+<div class="grid-line-v" style="left: 0;"></div>
+<div class="grid-line-v" style="left: calc(100% * 8/12);"></div>
+<div class="grid-line-v" style="right: 0;"></div>
+</div>
+</div>
+<!-- Masthead -->
+<section class="mb-32 relative z-10" style="opacity: 1; transform: translateY(0px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+<div class="flex flex-col gap-6 max-w-4xl">
+<span class="font-numeral-md text-numeral-md text-secondary-container bg-primary px-3 py-1 inline-block w-fit text-on-primary">
+                    SELECTED WORKS 2019–2026 · 24 PROJECTS
+                </span>
+<h1 class="font-display-lg text-display-lg tracking-tighter text-primary">创新成果</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    跨越人工智能、量子计算与智能制造的代表性成果。我们在这些领域不断突破物理与算力的极限，为下个世代的基础设施奠定技术基石。
+                </p>
+</div>
+</section>
+<!-- Indexed Works List -->
+<section class="mb-40 relative z-10" style="opacity: 1; transform: translateY(0px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+<div class="flex flex-col w-full">
+<!-- Row Header -->
+<div class="grid grid-cols-12 py-4 hairline-b items-end opacity-40">
+<div class="col-span-2 font-label-caps text-label-caps">INDEX / YEAR</div>
+<div class="col-span-6 font-label-caps text-label-caps">PROJECT NOMENCLATURE</div>
+<div class="col-span-4 font-label-caps text-label-caps text-right">BENCHMARK METRIC</div>
+</div>
+<!-- Row 1 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">01 / 2024</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">Neural Matrix Engine v4.0</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Artificial Intelligence / Edge Computing</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">99.8%</span>
+<span class="font-label-caps text-label-caps text-secondary">PRECISION RATE</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">02 / 2024</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">Qubit Stability Grid</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Quantum Computing / Infrastructure</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">×12</span>
+<span class="font-label-caps text-label-caps text-secondary">COHERENCE MULTIPLIER</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">03 / 2025</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">Adaptive Forge Protocol</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Smart Manufacturing / Robotics</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">0.4ms</span>
+<span class="font-label-caps text-label-caps text-secondary">RESPONSE LATENCY</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">04 / 2025</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">H-Fusion Plasma Containment</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Clean Energy / Advanced Physics</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">102s</span>
+<span class="font-label-caps text-label-caps text-secondary">SUSTAINED BURN</span>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">05 / 2026</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">Bio-Synthetic Interface</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Bio-Tech / Neural Link</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">2.4Gb</span>
+<span class="font-label-caps text-label-caps text-secondary">SYNAPTIC BANDWIDTH</span>
+</div>
+</div>
+<!-- Row 6 -->
+<div class="grid grid-cols-12 py-10 hairline-b items-center group hover:bg-surface-container transition-colors cursor-pointer px-2 -mx-2">
+<div class="col-span-2 font-numeral-md text-numeral-md text-secondary">06 / 2026</div>
+<div class="col-span-6">
+<h3 class="font-headline-md text-headline-md text-primary">Exo-Planetary Mining Rig</h3>
+<p class="font-label-caps text-label-caps text-secondary mt-1 uppercase">Aerospace / Automation</p>
+</div>
+<div class="col-span-4 flex flex-col items-end">
+<span class="font-display-xl text-[48px] font-numeral-md leading-none text-primary">94%</span>
+<span class="font-label-caps text-label-caps text-secondary">ORE PURITY INDEX</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Cases: Duotone Plates -->
+<section class="mb-48 relative z-10" style="opacity: 1; transform: translateY(0px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+<div class="flex flex-col gap-32">
+<!-- Case 1 -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<div class="col-span-7 border-t border-b border-outline-variant p-4 aspect-[16/9] relative overflow-hidden group"><div class="absolute inset-0 bg-primary opacity-10 group-hover:opacity-20 transition-opacity"></div><img alt="Quantum Interference Matrix Optimization" class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBAMy5jyaAMapA7BNQEHEHvQOnvkTvyuSoczV_zhL0PKYh4rhbsukFNZsuA7BPNWtVqAySFVtKX3VBlUEdlWF08sl3DXFjJZ7wD0HozBILG59tJvSuiFiQT6UgCWa44tc-XDvjH-eL9lM7j-d9g6Bmbfa_rNMsc7-9mOhDGEm-wFAs3NJINjVmVDy0ECC_v65xlZk0gKOxitnWl9bsjGtt8FsfCxPdlxNgJMSocD5-2OM3aq6-xZRQ_FqCMD11XC5CWgVtoaJY6d4"></div>
+<div class="col-span-5 pt-8">
+<div class="border-l-2 border-primary pl-6">
+<span class="font-label-caps text-label-caps text-secondary">FEATURED CASE 01</span>
+<h4 class="font-headline-lg text-headline-lg text-primary mt-2 mb-6">量子干涉矩阵优化</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-12">
+                                该项目解决了长达十年的量子比特相干性流失问题。通过引入动态干涉矩阵，我们将纠错成本降低了85%，为通用量子计算的商业化铺平了道路。
+                            </p>
+<div class="grid grid-cols-2 gap-8 border-t border-outline-variant pt-8">
+<div>
+<span class="font-numeral-md text-numeral-md text-primary block">3400+</span>
+<span class="font-label-caps text-label-caps text-secondary">QUBITS STABILIZED</span>
+</div>
+<div>
+<span class="font-numeral-md text-numeral-md text-primary block">SUB-1K</span>
+<span class="font-label-caps text-label-caps text-secondary">THERMAL PROFILE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Case 2 -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<div class="col-span-5 pt-8 order-2 md:order-1">
+<div class="border-r-2 border-primary pr-6 text-right">
+<span class="font-label-caps text-label-caps text-secondary">FEATURED CASE 02</span>
+<h4 class="font-headline-lg text-headline-lg text-primary mt-2 mb-6">全自动黑灯工厂 2.0</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-12">
+                                位于上海的示范基地，实现了从原材料进场到成品包装的100%无人化。结合实时数字孪生系统，生产效率提升了400%，碳排放降低了60%。
+                            </p>
+<div class="grid grid-cols-2 gap-8 border-t border-outline-variant pt-8">
+<div>
+<span class="font-numeral-md text-numeral-md text-primary block">ZERO</span>
+<span class="font-label-caps text-label-caps text-secondary">HUMAN INTERVENTION</span>
+</div>
+<div>
+<span class="font-numeral-md text-numeral-md text-primary block">99.99%</span>
+<span class="font-label-caps text-label-caps text-secondary">YIELD RATE</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-7 border-t border-b border-outline-variant p-4 aspect-[16/9] relative overflow-hidden group order-1 md:order-2"><div class="absolute inset-0 bg-primary opacity-10 group-hover:opacity-20 transition-opacity"></div><img alt="Automated Dark Factory 2.0" class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAogb_CykpY6M6xw5NUvAxkxhRutGXe2a_JeFZhFBXn90S1dUZjF7YfnLzb_fiWmOFmpBmwwNiGctXv6eRlj-A1kSUYcw_KVJ6WuhKVjNN_H8AFg-2tjgHlgnNrzBl6kKDKeocYUxev2dsNS_fRzKhaIaV5XOZLDJJI1-fKPRs8FNCfMUwj2_IvJGOJlHimPRESqL31Jpf0bi9hRmWElb_Sukn-K9qyu7iQLq3-1e0zYY5MHGX6cYJZ1OjiMzLZdQW8IF_8HZCj3hU"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-24 border-t border-outline-variant bg-surface">
+<div class="max-w-screen-2xl mx-auto px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md text-primary">DEEPTECH FRONTIER</div>
+<p class="font-label-caps text-label-caps text-secondary max-w-xs">
+                    ARCHITECTING THE FOUNDATION OF HUMANITY'S NEXT EPOCH THROUGH RIGOROUS DEEP-TECH EXPLORATION.
+                </p>
+</div>
+<div class="flex flex-col md:flex-row gap-12 md:gap-24">
+<div class="flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-primary font-bold">DIRECTORY</span>
+<nav class="flex flex-col gap-2">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline decoration-transparent hover:decoration-primary transition-all" href="#">ARCHIVE</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline decoration-transparent hover:decoration-primary transition-all" href="#">PRIVACY</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline decoration-transparent hover:decoration-primary transition-all" href="#">TERMS</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline decoration-transparent hover:decoration-primary transition-all" href="#">CONTACT</a>
+</nav>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-primary font-bold">CONNECT</span>
+<nav class="flex flex-col gap-2">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">X / TWITTER</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">LINKEDIN</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary underline transition-all" href="#">GITHUB</a>
+</nav>
+</div>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto px-margin-desktop py-6 border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">© 2024 DEEPTECH FRONTIER. ALL RIGHTS RESERVED.</span>
+<span class="font-numeral-md text-numeral-md text-secondary opacity-50">41.40338, 2.17403</span>
+</div>
+</footer>
+<script>
+        // Micro-interactions for the list items
+        document.querySelectorAll('.grid-cols-12').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Subtle lift or highlighting logic can go here
+            });
+        });
+
+        // Simple smooth scroll and intersection observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(20px)";
+            section.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+            observer.observe(section);
+        });
+    </script>
+
+
+</body></html>
