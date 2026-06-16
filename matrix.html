@@ -8,61 +8,194 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
-        :root {
-            --cyan-accent: #16B9A6;
-            --ink-black: #0B0B0C;
-            --warm-paper: #F6F5F1;
-            --hairline: #E3E1DB;
-        }
         body {
-            background-color: var(--warm-paper);
-            color: var(--ink-black);
+            background-color: #F6F5F1;
+            color: #0B0B0C;
             -webkit-font-smoothing: antialiased;
         }
-        .grid-hairline-x { border-top: 1px solid var(--hairline); }
-        .grid-hairline-y { border-left: 1px solid var(--hairline); }
-        .cyan-dot { width: 6px; height: 6px; background-color: var(--cyan-accent); border-radius: 50%; display: inline-block; }
+        /* —— 发丝线辅助类(合并五页:不同页用了不同命名,全部保留) —— */
+        .hairline   { border: 0 solid transparent; border-bottom-width: 1px; border-color: #E3E1DB; }
+        .hairline-v { border: 0 solid transparent; border-left-width: 1px;   border-color: #E3E1DB; }
+        .hairline-x { border-top: 1px solid #E3E1DB; }
+        .hairline-y { border-left: 1px solid #E3E1DB; }
+        .hairline-b { border-bottom: 1px solid #E3E1DB; }
+        .hairline-r { border-right: 1px solid #E3E1DB; }
+        .grid-hairline-x { border-top: 1px solid #E3E1DB; }
+        .grid-hairline-y { border-left: 1px solid #E3E1DB; }
+        /* —— 点睛 / 标记 —— */
+        .cyan-dot { width: 6px; height: 6px; background-color: #00E5FF; border-radius: 50%; display: inline-block; }
+        .cyan-marker { box-shadow: 0 0 12px rgba(0, 229, 255, 0.4); }
+        .cyan-underline { border-bottom: 2px solid #00E5FF; }
+        .custom-active { border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— nav 激活态统一钩子(SPA 切换时由 JS 加/删) —— */
+        .nav-active { color: #0B0B0C; border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— roadmap 时间轴脊 —— */
+        .timeline-spine { width: 1px; background: linear-gradient(to bottom, #77777b 0%, #77777b 100%); background-size: 1px 8px; background-repeat: repeat-y; }
+        /* —— innovations duotone 图版 —— */
+        .duotone-plate { filter: grayscale(1) contrast(1.1); transition: filter 0.5s ease; }
+        .duotone-plate:hover { filter: grayscale(0.2) contrast(1.05) hue-rotate(180deg); }
+        /* —— innovations 竖向网格参考线 —— */
+        .grid-line-v { position: absolute; top: 0; bottom: 0; width: 1px; background-color: #E3E1DB; z-index: 0; }
+        /* —— Material Symbols 字重统一 —— */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        /* —— index 网格参考(订阅可视化) —— */
+        .grid-guide {
+            position: fixed;
+            top: 0;
+            left: 96px;
+            right: 96px;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            opacity: 0.03;
+        }
+        .grid-guide > div {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        /* —— 滚动入场编排:克制的到场,无装饰 —— */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        [data-reveal].is-in { opacity: 1; transform: none; }
+        [data-reveal][style*="--rd"] { transition-delay: var(--rd); }
+        [data-draw] {
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw].is-in { transform: scaleX(1); }
+        [data-draw-y] {
+            transform: scaleY(0);
+            transform-origin: top center;
+            transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw-y].is-in { transform: scaleY(1); }
+        [data-parallax] { will-change: transform; }
+        @media (prefers-reduced-motion: reduce) {
+            [data-reveal], [data-draw], [data-draw-y] {
+                opacity: 1 !important; transform: none !important; transition: none !important;
+            }
+            [data-parallax] { transform: none !important; }
+        }
+
+        /* —— 页面切换过渡:进场淡入 + 离场淡出(全站统一) —— */
+        @view-transition { navigation: auto; }
+        ::view-transition-old(root),
+        ::view-transition-new(root) { animation-duration: 0.32s; }
+        @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { animation: pageFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        body.is-leaving { opacity: 0; transition: opacity 0.16s ease; animation: none; }
+        @media (prefers-reduced-motion: reduce) {
+            body, body.is-leaving { animation: none; opacity: 1; transition: none; }
+        }
     </style>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "outline": "#77777b",
-                        "surface": "#F6F5F1",
-                        "on-surface": "#0B0B0C",
-                        "primary": "#0B0B0C",
-                        "on-background": "#0B0B0C",
-                        "background": "#F6F5F1",
-                        "outline-variant": "#E3E1DB",
-                        "secondary": "#5e5e63",
-                    },
-                    spacing: {
-                        "columns": "12",
-                        "gutter": "24px",
-                        "margin-desktop": "96px",
-                        "unit": "8px"
-                    },
-                    fontFamily: {
-                        "body-md": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "display-xl": ["Hanken Grotesk"],
-                        "numeral-md": ["JetBrains Mono"],
-                        "label-caps": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"]
-                    },
-                    fontSize: {
-                        "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
-                        "headline-md": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
-                        "display-xl": ["120px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800" }],
-                        "numeral-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600" }],
-                        "display-lg": ["96px", { "lineHeight": "90px", "letterSpacing": "-0.03em", "fontWeight": "800" }]
-                    }
-                }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0B0B0C",
+                    "surface-bright": "#F6F5F1",
+                    "surface": "#F6F5F1",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed": "#1c1b1c",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "surface-container-high": "#ebe7e7",
+                    "secondary": "#6F6F74",
+                    "on-tertiary-container": "#868380",
+                    "tertiary-fixed": "#e7e2dd",
+                    "on-tertiary-fixed-variant": "#494644",
+                    "on-primary-fixed-variant": "#474647",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "inverse-surface": "#313030",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#ddd9d9",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "outline-variant": "#E3E1DB",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#cac6c2",
+                    "primary-container": "#1c1b1c",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#c8c6c7",
+                    "on-surface-variant": "#46464a",
+                    "primary-fixed": "#e5e2e3",
+                    "outline": "#77777b",
+                    "inverse-on-surface": "#f4f0ef",
+                    "tertiary-container": "#1d1b19",
+                    "surface-container-low": "#f7f3f2",
+                    "on-primary-container": "#858384",
+                    "on-primary": "#ffffff",
+                    "on-background": "#0B0B0C",
+                    "secondary-container": "#e0dfe4",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#5f5e5f",
+                    "surface-container": "#f1edec",
+                    "surface-variant": "#e5e2e1",
+                    "tertiary": "#0B0B0C",
+                    "background": "#F6F5F1",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0B0B0C",
+                    "on-secondary-container": "#626267",
+                    "on-tertiary-fixed": "#1d1b19",
+                    "ink": "#0B0B0C",
+                    "warm-paper": "#F6F5F1",
+                    "cold-cyan": "#00E5FF",
+                    "cyan-accent": "#00E5FF"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "24px",
+                    "unit": "8px",
+                    "margin-desktop": "96px",
+                    "gutter": "24px",
+                    "columns": "12"
+            },
+            "fontFamily": {
+                    "numeral-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-xl": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
             }
-        }
+          },
+        },
+      }
     </script>
 </head>
 <body class="font-body-md overflow-x-hidden">
@@ -72,7 +205,7 @@
 <div class="font-headline-md text-headline-md tracking-tighter text-primary">DEEPTECH FRONTIER</div>
 <div class="hidden md:flex gap-10 items-center">
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="index.html">首页</a>
-<a class="font-label-caps text-label-caps text-primary border-b-2 border-[#16B9A6] pb-1" href="matrix.html">技术矩阵</a>
+<a class="font-label-caps text-label-caps nav-active" href="matrix.html">技术矩阵</a>
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="explore.html">探索前沿</a>
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="innovations.html">创新成果</a>
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="roadmap.html">未来计划</a>
@@ -85,11 +218,11 @@
 <main class="max-w-screen-2xl mx-auto px-margin-desktop pt-24">
 <!-- Masthead -->
 <section class="mb-24">
-<div class="font-numeral-md text-numeral-md uppercase tracking-widest mb-6 flex items-center gap-3">
-<span class="text-[#16B9A6]">●</span> TECHNOLOGY MATRIX — 09 DOMAINS / INDEX 2026
+<div class="font-numeral-md text-numeral-md uppercase tracking-widest mb-6 flex items-center gap-3" data-reveal style="--rd:0ms">
+<span class="text-[#00E5FF]">●</span> TECHNOLOGY MATRIX — 09 DOMAINS / INDEX 2026
             </div>
-<h1 class="font-display-lg text-display-lg mb-8">技术矩阵</h1>
-<p class="max-w-2xl font-body-md text-secondary text-body-lg">
+<h1 class="font-display-lg text-display-lg mb-8" data-reveal style="--rd:80ms">技术矩阵</h1>
+<p class="max-w-2xl font-body-md text-secondary text-body-lg" data-reveal style="--rd:160ms">
                 九大前沿技术领域的结构化图谱，按成熟度与方向归类。DEEPTECH FRONTIER 通过对全球研发投入、专利增长及工程落地能力的实时监控，构建出这一指导未来十年的技术演进索引。
             </p>
 </section>
@@ -97,11 +230,11 @@
 <section class="mb-32">
 <div class="grid grid-cols-1 md:grid-cols-2 border-outline-variant border-b border-r">
 <!-- Feature 01: AI (Staggered/Large) -->
-<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group">
+<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group" data-reveal style="--rd:0ms">
 <div>
 <div class="flex justify-between items-start mb-12">
 <span class="font-numeral-md text-numeral-md text-secondary">01 <span class="cyan-dot ml-2"></span></span>
-<span class="font-numeral-md text-sm text-[#16B9A6]">88% MATURITY</span>
+<span class="font-numeral-md text-sm text-[#00E5FF]">88% MATURITY</span>
 </div>
 <h3 class="text-5xl font-bold leading-tight mb-2">人工智能</h3>
 <p class="font-numeral-md text-xs text-secondary mb-12">基础架构与自进化演进</p>
@@ -112,11 +245,11 @@
 <div class="font-label-caps text-label-caps text-secondary">ARTIFICIAL INTELLIGENCE</div>
 </div>
 <!-- Feature 02: Quantum (Staggered/Large) -->
-<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group">
+<div class="md:col-span-1 p-12 border-l border-t border-outline-variant flex flex-col justify-between group" data-reveal style="--rd:120ms">
 <div>
 <div class="flex justify-between items-start mb-12">
 <span class="font-numeral-md text-numeral-md text-secondary">02 <span class="cyan-dot ml-2"></span></span>
-<span class="font-numeral-md text-sm text-[#16B9A6]">39% MATURITY</span>
+<span class="font-numeral-md text-sm text-[#00E5FF]">39% MATURITY</span>
 </div>
 <h3 class="text-5xl font-bold leading-tight mb-2">量子计算</h3>
 <p class="font-numeral-md text-xs text-secondary mb-12">相干性边界与量子纠缠控制</p>
@@ -130,7 +263,7 @@
 <!-- Compact Grid for remaining 7 -->
 <div class="grid grid-cols-1 md:grid-cols-4 border-r border-b border-outline-variant">
 <!-- Cell 03 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:0ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">03</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR →</span>
@@ -139,7 +272,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●○○</div>
 </div>
 <!-- Cell 04 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:60ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">04</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
@@ -148,7 +281,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●●○</div>
 </div>
 <!-- Cell 05 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:120ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">05</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR ↗</span>
@@ -157,7 +290,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●●●</div>
 </div>
 <!-- Cell 06 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:180ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">06</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
@@ -166,7 +299,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●●○○</div>
 </div>
 <!-- Cell 07 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:240ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">07</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR ↗</span>
@@ -175,7 +308,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●○○○○</div>
 </div>
 <!-- Cell 08 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:300ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">08</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR →</span>
@@ -184,7 +317,7 @@
 <div class="font-numeral-md text-[10px] text-secondary">MATURITY ●●○○○</div>
 </div>
 <!-- Cell 09 -->
-<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors">
+<div class="p-8 border-l border-t border-outline-variant hover:bg-white transition-colors" data-reveal style="--rd:360ms">
 <div class="flex justify-between items-center mb-6">
 <span class="font-numeral-md text-xs text-secondary">09</span>
 <span class="font-numeral-md text-[10px] text-secondary">VECTOR ↑</span>
@@ -197,7 +330,7 @@
 </div>
 </section>
 <!-- Breathing Pause -->
-<section class="py-48 flex flex-col items-center text-center">
+<section class="py-48 flex flex-col items-center text-center" data-reveal>
 <h2 class="text-[32px] font-bold leading-relaxed mb-6 max-w-4xl">
                 “技术不是孤立的突破，而是九条曲线在同一时间轴上的交汇。”
             </h2>
@@ -205,8 +338,8 @@
 </section>
 <!-- Secondary Status Log (Appendix Style) -->
 <section class="mb-48">
-<h2 class="font-label-caps text-label-caps text-secondary mb-12 opacity-50">DETAILED STATUS LOG / 技术状态日志</h2>
-<div class="w-full">
+<h2 class="font-label-caps text-label-caps text-secondary mb-12 opacity-50" data-reveal>DETAILED STATUS LOG / 技术状态日志</h2>
+<div class="w-full" data-reveal style="--rd:80ms">
 <table class="w-full text-left border-collapse">
 <thead>
 <tr class="border-b border-primary/20">
@@ -263,16 +396,16 @@
 </section>
 <!-- Abstract Grid Visual (Maintained) -->
 <section class="mb-32">
-<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-4 mb-8" data-reveal>
 <span class="font-numeral-md text-label-caps text-secondary uppercase tracking-widest">MATURITY DISTRIBUTION — 09 DOMAINS</span>
-<div class="h-[1px] flex-grow bg-[#16B9A6]"></div>
+<div class="h-[1px] flex-grow bg-[#00E5FF]" data-draw></div>
 </div>
-<div class="w-full h-2 flex border-l border-outline-variant">
+<div class="w-full h-2 flex border-l border-outline-variant" data-reveal style="--rd:120ms">
 <div class="flex-1 bg-[#6F6F74] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#E3E1DB] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#6F6F74] border-r border-outline-variant"></div>
-<div class="flex-1 bg-[#16B9A6] border-r border-outline-variant"></div>
+<div class="flex-1 bg-[#00E5FF] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#E3E1DB] border-r border-outline-variant"></div>
 <div class="flex-1 bg-[#DDD9D9] border-r border-outline-variant"></div>
@@ -313,14 +446,163 @@
 </div>
 </footer>
 <script>
-        // Micro-interaction for table rows
-        document.querySelectorAll('tbody tr').forEach(row => {
-            row.addEventListener('mouseenter', () => {
-                row.querySelector('.cyan-dot')?.classList.add('scale-150');
+        /* ===========================================================
+           DEEPTECH FRONTIER — 统一脚本(五页共用)
+           1) initPage(): 可重入,对当前 <main> 绑定滚动入场/微交互
+           2) SPA 路由器: 拦截站内导航,fetch + 就地替换 <main>,Tailwind 只编译一次 → 零 FOUC
+           渐进增强: 任一步失败都回退为普通跳转,站点永不卡死。
+           =========================================================== */
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const PAGES = ['index.html', 'matrix.html', 'explore.html', 'innovations.html', 'roadmap.html'];
+
+            function initPage(root) {
+                root = root || document;
+                const animated = root.querySelectorAll('[data-reveal], [data-draw], [data-draw-y]');
+                if (reduceMotion || !('IntersectionObserver' in window)) {
+                    animated.forEach(el => el.classList.add('is-in'));
+                } else {
+                    const io = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-in');
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+                    animated.forEach(el => io.observe(el));
+                }
+
+                const parallaxEls = Array.from(root.querySelectorAll('[data-parallax]'));
+                if (!reduceMotion && parallaxEls.length && !window.__parallaxBound) {
+                    window.__parallaxBound = true;
+                    let ticking = false;
+                    const update = () => {
+                        const y = window.pageYOffset;
+                        document.querySelectorAll('[data-parallax]').forEach(el => {
+                            const speed = parseFloat(el.dataset.parallaxSpeed) || 0.08;
+                            el.style.transform = 'translate3d(0,' + (-y * speed).toFixed(2) + 'px,0)';
+                        });
+                        ticking = false;
+                    };
+                    window.addEventListener('scroll', () => {
+                        if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+                    }, { passive: true });
+                    update();
+                }
+            }
+
+            function bindGlobalInteractions() {
+                const headerScroll = () => {
+                    const header = document.querySelector('header, nav.sticky, body > nav');
+                    if (!header) return;
+                    header.style.boxShadow = window.pageYOffset > 0 ? 'inset 0 -1px 0 #E3E1DB' : 'none';
+                };
+                window.addEventListener('scroll', headerScroll, { passive: true });
+                headerScroll();
+
+                document.addEventListener('mouseover', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.add('scale-150');
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.remove('scale-150');
+                });
+
+                document.addEventListener('mouseover', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h && group.closest('section')) {
+                        h.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                        h.classList.add('text-cyan-accent', 'translate-x-2');
+                    }
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h) h.classList.remove('text-cyan-accent', 'translate-x-2');
+                });
+            }
+
+            function updateActiveNav(file) {
+                document.querySelectorAll('nav a[href$=".html"], header a[href$=".html"]').forEach(a => {
+                    const href = (a.getAttribute('href') || '').split('/').pop();
+                    if (PAGES.includes(href)) {
+                        a.classList.toggle('nav-active', href === file);
+                        a.classList.toggle('text-secondary', href !== file);
+                    }
+                });
+            }
+
+            let navigating = false;
+            function currentFile() {
+                const f = location.pathname.split('/').pop();
+                return f && f.endsWith('.html') ? f : 'index.html';
+            }
+
+            function swapTo(file, push) {
+                if (navigating) return;
+                navigating = true;
+                fetch(file, { headers: { 'X-Requested-With': 'fetch' } })
+                    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+                    .then(html => {
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        const newMain = doc.querySelector('main');
+                        const curMain = document.querySelector('main');
+                        if (!newMain || !curMain) throw new Error('no <main>');
+
+                        const apply = () => {
+                            curMain.replaceWith(newMain);
+                            document.title = doc.title || document.title;
+                            updateActiveNav(file);
+                            window.scrollTo(0, 0);
+                            initPage(document);
+                        };
+
+                        if (document.startViewTransition && !reduceMotion) {
+                            document.startViewTransition(apply);
+                        } else {
+                            apply();
+                        }
+
+                        if (push) history.pushState({ file }, '', file);
+                        navigating = false;
+                    })
+                    .catch(() => {
+                        navigating = false;
+                        if (!reduceMotion) document.body.classList.add('is-leaving');
+                        setTimeout(() => { window.location.href = file; }, reduceMotion ? 0 : 150);
+                    });
+            }
+
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a[href$=".html"]');
+                if (!a) return;
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                if (a.target === '_blank') return;
+                const file = (a.getAttribute('href') || '').split('/').pop();
+                if (!PAGES.includes(file)) return;
+                e.preventDefault();
+                if (file === currentFile()) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+                swapTo(file, true);
             });
-            row.addEventListener('mouseleave', () => {
-                row.querySelector('.cyan-dot')?.classList.remove('scale-150');
+
+            window.addEventListener('popstate', () => {
+                swapTo(currentFile(), false);
             });
-        });
+
+            window.addEventListener('pageshow', (e) => {
+                if (e.persisted) document.body.classList.remove('is-leaving');
+            });
+
+            history.replaceState({ file: currentFile() }, '', location.href);
+            bindGlobalInteractions();
+            updateActiveNav(currentFile());
+            initPage(document);
+            console.log("DEEPTECH FRONTIER — System Initialized");
+        })();
     </script>
 </body></html>

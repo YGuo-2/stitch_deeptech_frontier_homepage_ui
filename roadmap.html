@@ -7,118 +7,199 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        body {
+            background-color: #F6F5F1;
+            color: #0B0B0C;
+            -webkit-font-smoothing: antialiased;
         }
-        /* Custom scrollbar for minimalist look */
+        /* 极简滚动条(roadmap 原有,保留) */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #fdf8f8; }
+        ::-webkit-scrollbar-track { background: #F6F5F1; }
         ::-webkit-scrollbar-thumb { background: #c7c6ca; }
-        
-        .timeline-spine {
-            width: 1px;
-            background: linear-gradient(to bottom, #77777b 0%, #77777b 100%);
-            background-size: 1px 8px;
-            background-repeat: repeat-y;
+        /* —— 发丝线辅助类(合并五页:不同页用了不同命名,全部保留) —— */
+        .hairline   { border: 0 solid transparent; border-bottom-width: 1px; border-color: #E3E1DB; }
+        .hairline-v { border: 0 solid transparent; border-left-width: 1px;   border-color: #E3E1DB; }
+        .hairline-x { border-top: 1px solid #E3E1DB; }
+        .hairline-y { border-left: 1px solid #E3E1DB; }
+        .hairline-b { border-bottom: 1px solid #E3E1DB; }
+        .hairline-r { border-right: 1px solid #E3E1DB; }
+        .grid-hairline-x { border-top: 1px solid #E3E1DB; }
+        .grid-hairline-y { border-left: 1px solid #E3E1DB; }
+        /* —— 点睛 / 标记 —— */
+        .cyan-dot { width: 6px; height: 6px; background-color: #00E5FF; border-radius: 50%; display: inline-block; }
+        .cyan-marker { box-shadow: 0 0 12px rgba(0, 229, 255, 0.4); }
+        .cyan-underline { border-bottom: 2px solid #00E5FF; }
+        .custom-active { border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— nav 激活态统一钩子(SPA 切换时由 JS 加/删) —— */
+        .nav-active { color: #0B0B0C; border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— roadmap 时间轴脊 —— */
+        .timeline-spine { width: 1px; background: linear-gradient(to bottom, #77777b 0%, #77777b 100%); background-size: 1px 8px; background-repeat: repeat-y; }
+        /* —— innovations duotone 图版 —— */
+        .duotone-plate { filter: grayscale(1) contrast(1.1); transition: filter 0.5s ease; }
+        .duotone-plate:hover { filter: grayscale(0.2) contrast(1.05) hue-rotate(180deg); }
+        /* —— innovations 竖向网格参考线 —— */
+        .grid-line-v { position: absolute; top: 0; bottom: 0; width: 1px; background-color: #E3E1DB; z-index: 0; }
+        /* —— Material Symbols 字重统一 —— */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        /* —— index 网格参考(订阅可视化) —— */
+        .grid-guide {
+            position: fixed;
+            top: 0;
+            left: 96px;
+            right: 96px;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            opacity: 0.03;
         }
-        
-        .cyan-marker {
-            box-shadow: 0 0 12px rgba(0, 184, 212, 0.4);
+        .grid-guide > div {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        /* —— 滚动入场编排:克制的到场,无装饰 —— */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        [data-reveal].is-in { opacity: 1; transform: none; }
+        [data-reveal][style*="--rd"] { transition-delay: var(--rd); }
+        [data-draw] {
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw].is-in { transform: scaleX(1); }
+        /* 纵向"生长":时间轴脊由上而下被画出 */
+        [data-draw-y] {
+            transform: scaleY(0);
+            transform-origin: top center;
+            transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw-y].is-in { transform: scaleY(1); }
+        [data-parallax] { will-change: transform; }
+        @media (prefers-reduced-motion: reduce) {
+            [data-reveal], [data-draw], [data-draw-y] {
+                opacity: 1 !important; transform: none !important; transition: none !important;
+            }
+            [data-parallax] { transform: none !important; }
+        }
+
+        /* —— 页面切换过渡:进场淡入 + 离场淡出(全站统一) —— */
+        @view-transition { navigation: auto; }
+        ::view-transition-old(root),
+        ::view-transition-new(root) { animation-duration: 0.32s; }
+        @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { animation: pageFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        body.is-leaving { opacity: 0; transition: opacity 0.16s ease; animation: none; }
+        @media (prefers-reduced-motion: reduce) {
+            body, body.is-leaving { animation: none; opacity: 1; transition: none; }
         }
     </style>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "outline": "#77777b",
-                        "primary-fixed-dim": "#c8c6c7",
-                        "surface-container-low": "#f7f3f2",
-                        "tertiary-fixed": "#e7e2dd",
-                        "surface": "#fdf8f8",
-                        "secondary-fixed": "#e3e2e7",
-                        "on-tertiary-fixed-variant": "#494644",
-                        "on-primary": "#ffffff",
-                        "surface-bright": "#fdf8f8",
-                        "inverse-surface": "#313030",
-                        "primary-fixed": "#e5e2e3",
-                        "on-tertiary-container": "#868380",
-                        "on-surface": "#1c1b1b",
-                        "tertiary": "#000000",
-                        "on-primary-fixed-variant": "#474647",
-                        "on-background": "#1c1b1b",
-                        "error-container": "#ffdad6",
-                        "surface-tint": "#5f5e5f",
-                        "secondary-container": "#e0dfe4",
-                        "surface-variant": "#e5e2e1",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed-variant": "#46464b",
-                        "outline-variant": "#c7c6ca",
-                        "surface-container": "#f1edec",
-                        "on-primary-fixed": "#1c1b1c",
-                        "on-tertiary-fixed": "#1d1b19",
-                        "on-primary-container": "#858384",
-                        "inverse-on-surface": "#f4f0ef",
-                        "secondary-fixed-dim": "#c7c6cb",
-                        "on-secondary-container": "#626267",
-                        "surface-dim": "#ddd9d9",
-                        "on-error": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#1d1b19",
-                        "on-surface-variant": "#46464a",
-                        "on-secondary-fixed": "#1a1b1f",
-                        "surface-container-highest": "#e5e2e1",
-                        "primary-container": "#1c1b1c",
-                        "inverse-primary": "#c8c6c7",
-                        "background": "#fdf8f8",
-                        "on-error-container": "#93000a",
-                        "primary": "#000000",
-                        "on-tertiary": "#ffffff",
-                        "tertiary-fixed-dim": "#cac6c2",
-                        "secondary": "#5e5e63",
-                        "surface-container-high": "#ebe7e7",
-                        "error": "#ba1a1a",
-                        "cyan-accent": "#00B8D4"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "columns": "12",
-                        "gutter": "24px",
-                        "margin-mobile": "24px",
-                        "unit": "8px",
-                        "margin-desktop": "96px"
-                    },
-                    "fontFamily": {
-                        "body-md": ["Hanken Grotesk"],
-                        "body-lg": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "display-xl": ["Hanken Grotesk"],
-                        "numeral-md": ["JetBrains Mono"],
-                        "label-caps": ["Hanken Grotesk"],
-                        "display-lg-mobile": ["Hanken Grotesk"],
-                        "headline-lg": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
-                        "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
-                        "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
-                        "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
-                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
-                        "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
-                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
-                    }
-                }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#0B0B0C",
+                    "surface-bright": "#F6F5F1",
+                    "surface": "#F6F5F1",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed": "#1c1b1c",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "surface-container-high": "#ebe7e7",
+                    "secondary": "#6F6F74",
+                    "on-tertiary-container": "#868380",
+                    "tertiary-fixed": "#e7e2dd",
+                    "on-tertiary-fixed-variant": "#494644",
+                    "on-primary-fixed-variant": "#474647",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "inverse-surface": "#313030",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#ddd9d9",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "outline-variant": "#E3E1DB",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#cac6c2",
+                    "primary-container": "#1c1b1c",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#c8c6c7",
+                    "on-surface-variant": "#46464a",
+                    "primary-fixed": "#e5e2e3",
+                    "outline": "#77777b",
+                    "inverse-on-surface": "#f4f0ef",
+                    "tertiary-container": "#1d1b19",
+                    "surface-container-low": "#f7f3f2",
+                    "on-primary-container": "#858384",
+                    "on-primary": "#ffffff",
+                    "on-background": "#0B0B0C",
+                    "secondary-container": "#e0dfe4",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#5f5e5f",
+                    "surface-container": "#f1edec",
+                    "surface-variant": "#e5e2e1",
+                    "tertiary": "#0B0B0C",
+                    "background": "#F6F5F1",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#0B0B0C",
+                    "on-secondary-container": "#626267",
+                    "on-tertiary-fixed": "#1d1b19",
+                    "ink": "#0B0B0C",
+                    "warm-paper": "#F6F5F1",
+                    "cold-cyan": "#00E5FF",
+                    "cyan-accent": "#00E5FF"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "24px",
+                    "unit": "8px",
+                    "margin-desktop": "96px",
+                    "gutter": "24px",
+                    "columns": "12"
+            },
+            "fontFamily": {
+                    "numeral-md": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-xl": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
             }
-        }
+          },
+        },
+      }
     </script>
 </head>
 <body class="bg-surface text-on-surface font-body-md selection:bg-cyan-accent selection:text-white">
@@ -131,7 +212,7 @@
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="matrix.html">技术矩阵</a>
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="explore.html">探索前沿</a>
 <a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors h-full flex items-center" href="innovations.html">创新成果</a>
-<a class="font-label-caps text-label-caps text-primary border-b-2 border-cyan-accent pb-1 h-full flex items-center" href="roadmap.html">未来计划</a>
+<a class="font-label-caps text-label-caps nav-active h-full flex items-center" href="roadmap.html">未来计划</a>
 </div>
 <div class="flex items-center gap-6">
 <div class="cursor-pointer transition-opacity duration-200 active:opacity-70 font-label-caps text-label-caps text-primary">SUBSCRIBE</div>
@@ -143,13 +224,13 @@
 <!-- Masthead -->
 <header class="grid grid-cols-12 gap-gutter mb-24">
 <div class="col-span-12 md:col-span-8">
-<div class="font-numeral-md text-numeral-md text-outline mb-4">ROADMAP — 2026 ▸ 2040</div>
-<h1 class="font-display-lg text-display-lg mb-8">未来计划</h1>
-<p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+<div class="font-numeral-md text-numeral-md text-outline mb-4" data-reveal style="--rd:0ms">ROADMAP — 2026 ▸ 2040</div>
+<h1 class="font-display-lg text-display-lg mb-8" data-reveal style="--rd:80ms">未来计划</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl" data-reveal style="--rd:160ms">
                     面向下一代科技文明的阶段性路线与里程碑。我们致力于通过可预测的技术跃迁，构建一个以深度科技为核心的可持续未来蓝图。
                 </p>
 </div>
-</header><section class="mb-32 border-t border-b border-outline-variant py-12">
+</header><section class="mb-32 border-t border-b border-outline-variant py-12" data-reveal>
     <div class="relative w-full aspect-[21/9] overflow-hidden">
         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zq6doYXfV6XMVWepOTueZsC8_oBDHsk9oedwaO9nUT6Vc0rQuJG1gp09TEK3Cdl5gbH1omIp9oFLggIQyNh-SlAAowFKv3vxhm0t9_QaOWX-3no5UWRYaOqlBhwIWDVWx5nrPo3hHG4rLKV1LLDjcqMQMMocDe65mlxZCRIEaA7KrUxPti3Y1uZ4aTGmgexpBsH_FCYBFvNtDDjEMBDL9ljtSfHEJMoh_P_gjdyZ6JgRq52JagWwkijTXZTm7B1KCP58oHMt5QM" alt="Precision-engineered modules representing sequence and progression" class="w-full h-full object-cover opacity-90 grayscale hover:grayscale-0 transition-all duration-700">
         <div class="absolute inset-0 pointer-events-none border border-outline-variant/30"></div>
@@ -160,10 +241,10 @@
     </div>
 </section>
 <!-- Horizon Bar -->
-<section class="mb-32">
+<section class="mb-32" data-reveal>
 <div class="relative w-full h-12 flex items-end">
 <!-- Main Hairline -->
-<div class="absolute bottom-0 left-0 w-full h-[1px] bg-outline-variant"></div>
+<div class="absolute bottom-0 left-0 w-full h-[1px] bg-outline-variant" data-draw></div>
 <!-- Tick Labels & Markers -->
 <div class="relative w-full flex justify-between px-0">
 <!-- NOW -->
@@ -193,9 +274,9 @@
 <section class="grid grid-cols-12 gap-gutter">
 <div class="col-span-12 md:col-span-10 lg:col-span-8 relative">
 <!-- The Spine -->
-<div class="absolute left-[59px] top-0 bottom-0 timeline-spine hidden md:block"></div>
+<div class="absolute left-[59px] top-0 bottom-0 timeline-spine hidden md:block" data-draw-y></div>
 <!-- Milestone 1 -->
-<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group" data-reveal style="--rd:0ms">
 <div class="hidden md:flex justify-end pr-8 pt-1">
 <span class="font-numeral-md text-numeral-md text-on-surface">2026</span>
 </div>
@@ -212,7 +293,7 @@
 </div>
 </div>
 <!-- Milestone 2 -->
-<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group" data-reveal style="--rd:80ms">
 <div class="hidden md:flex justify-end pr-8 pt-1">
 <span class="font-numeral-md text-numeral-md text-on-surface">2028</span>
 </div>
@@ -228,7 +309,7 @@
 </div>
 </div>
 <!-- Milestone 3 -->
-<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group" data-reveal style="--rd:160ms">
 <div class="hidden md:flex justify-end pr-8 pt-1">
 <span class="font-numeral-md text-numeral-md text-on-surface">2031</span>
 </div>
@@ -244,7 +325,7 @@
 </div>
 </div>
 <!-- Milestone 4 -->
-<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group">
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-24 relative group" data-reveal style="--rd:240ms">
 <div class="hidden md:flex justify-end pr-8 pt-1">
 <span class="font-numeral-md text-numeral-md text-on-surface">2035</span>
 </div>
@@ -260,7 +341,7 @@
 </div>
 </div>
 <!-- Milestone 5 -->
-<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-0 relative group">
+<div class="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-x-12 mb-0 relative group" data-reveal style="--rd:320ms">
 <div class="hidden md:flex justify-end pr-8 pt-1">
 <span class="font-numeral-md text-numeral-md text-on-surface">2040</span>
 </div>
@@ -278,7 +359,7 @@
 </div>
 </section>
 <!-- Technical Annotation Layer -->
-<div class="mt-32 pt-12 border-t border-outline-variant grid grid-cols-12 gap-gutter opacity-60">
+<div class="mt-32 pt-12 border-t border-outline-variant grid grid-cols-12 gap-gutter opacity-60" data-reveal>
 <div class="col-span-12 md:col-span-4">
 <div class="font-label-caps text-[10px] tracking-widest mb-2">PRECISION INDEX</div>
 <div class="font-numeral-md text-[12px]">± 18 MONTHS VAR / CONFIDENCE 85%</div>
@@ -312,19 +393,164 @@
 </div>
 </footer>
 <script>
-        // Micro-interaction for timeline hover
-        document.querySelectorAll('.group').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.querySelector('.font-headline-md').classList.add('text-cyan-accent');
-                item.querySelector('.font-headline-md').classList.add('translate-x-2');
-                item.querySelector('.font-headline-md').classList.remove('transition-all');
-                item.querySelector('.font-headline-md').style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        /* ===========================================================
+           DEEPTECH FRONTIER — 统一脚本(五页共用)
+           1) initPage(): 可重入,对当前 <main> 绑定滚动入场/微交互
+           2) SPA 路由器: 拦截站内导航,fetch + 就地替换 <main>,Tailwind 只编译一次 → 零 FOUC
+           渐进增强: 任一步失败都回退为普通跳转,站点永不卡死。
+           =========================================================== */
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const PAGES = ['index.html', 'matrix.html', 'explore.html', 'innovations.html', 'roadmap.html'];
+
+            function initPage(root) {
+                root = root || document;
+                const animated = root.querySelectorAll('[data-reveal], [data-draw], [data-draw-y]');
+                if (reduceMotion || !('IntersectionObserver' in window)) {
+                    animated.forEach(el => el.classList.add('is-in'));
+                } else {
+                    const io = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-in');
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+                    animated.forEach(el => io.observe(el));
+                }
+
+                const parallaxEls = Array.from(root.querySelectorAll('[data-parallax]'));
+                if (!reduceMotion && parallaxEls.length && !window.__parallaxBound) {
+                    window.__parallaxBound = true;
+                    let ticking = false;
+                    const update = () => {
+                        const y = window.pageYOffset;
+                        document.querySelectorAll('[data-parallax]').forEach(el => {
+                            const speed = parseFloat(el.dataset.parallaxSpeed) || 0.08;
+                            el.style.transform = 'translate3d(0,' + (-y * speed).toFixed(2) + 'px,0)';
+                        });
+                        ticking = false;
+                    };
+                    window.addEventListener('scroll', () => {
+                        if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+                    }, { passive: true });
+                    update();
+                }
+            }
+
+            function bindGlobalInteractions() {
+                const headerScroll = () => {
+                    const header = document.querySelector('header, nav.sticky, body > nav');
+                    if (!header) return;
+                    header.style.boxShadow = window.pageYOffset > 0 ? 'inset 0 -1px 0 #E3E1DB' : 'none';
+                };
+                window.addEventListener('scroll', headerScroll, { passive: true });
+                headerScroll();
+
+                document.addEventListener('mouseover', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.add('scale-150');
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.remove('scale-150');
+                });
+
+                document.addEventListener('mouseover', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h && group.closest('section')) {
+                        h.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                        h.classList.add('text-cyan-accent', 'translate-x-2');
+                    }
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h) h.classList.remove('text-cyan-accent', 'translate-x-2');
+                });
+            }
+
+            function updateActiveNav(file) {
+                document.querySelectorAll('nav a[href$=".html"], header a[href$=".html"]').forEach(a => {
+                    const href = (a.getAttribute('href') || '').split('/').pop();
+                    if (PAGES.includes(href)) {
+                        a.classList.toggle('nav-active', href === file);
+                        a.classList.toggle('text-secondary', href !== file);
+                    }
+                });
+            }
+
+            let navigating = false;
+            function currentFile() {
+                const f = location.pathname.split('/').pop();
+                return f && f.endsWith('.html') ? f : 'index.html';
+            }
+
+            function swapTo(file, push) {
+                if (navigating) return;
+                navigating = true;
+                fetch(file, { headers: { 'X-Requested-With': 'fetch' } })
+                    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+                    .then(html => {
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        const newMain = doc.querySelector('main');
+                        const curMain = document.querySelector('main');
+                        if (!newMain || !curMain) throw new Error('no <main>');
+
+                        const apply = () => {
+                            curMain.replaceWith(newMain);
+                            document.title = doc.title || document.title;
+                            updateActiveNav(file);
+                            window.scrollTo(0, 0);
+                            initPage(document);
+                        };
+
+                        if (document.startViewTransition && !reduceMotion) {
+                            document.startViewTransition(apply);
+                        } else {
+                            apply();
+                        }
+
+                        if (push) history.pushState({ file }, '', file);
+                        navigating = false;
+                    })
+                    .catch(() => {
+                        navigating = false;
+                        if (!reduceMotion) document.body.classList.add('is-leaving');
+                        setTimeout(() => { window.location.href = file; }, reduceMotion ? 0 : 150);
+                    });
+            }
+
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a[href$=".html"]');
+                if (!a) return;
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                if (a.target === '_blank') return;
+                const file = (a.getAttribute('href') || '').split('/').pop();
+                if (!PAGES.includes(file)) return;
+                e.preventDefault();
+                if (file === currentFile()) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+                swapTo(file, true);
             });
-            item.addEventListener('mouseleave', () => {
-                item.querySelector('.font-headline-md').classList.remove('text-cyan-accent');
-                item.querySelector('.font-headline-md').classList.remove('translate-x-2');
+
+            window.addEventListener('popstate', () => {
+                swapTo(currentFile(), false);
             });
-        });
+
+            window.addEventListener('pageshow', (e) => {
+                if (e.persisted) document.body.classList.remove('is-leaving');
+            });
+
+            history.replaceState({ file: currentFile() }, '', location.href);
+            bindGlobalInteractions();
+            updateActiveNav(currentFile());
+            initPage(document);
+            console.log("DEEPTECH FRONTIER — System Initialized");
+        })();
     </script>
 
 

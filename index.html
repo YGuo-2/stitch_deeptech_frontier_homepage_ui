@@ -8,21 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind Config -->
+<!-- Tailwind Config (统一并集:覆盖五页所有 token;冲突值朝设计规范靠拢) -->
 <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             "colors": {
-                    "primary": "#000000",
-                    "surface-bright": "#fdf8f8",
-                    "surface": "#fdf8f8",
+                    "primary": "#0B0B0C",
+                    "surface-bright": "#F6F5F1",
+                    "surface": "#F6F5F1",
                     "error-container": "#ffdad6",
                     "on-primary-fixed": "#1c1b1c",
                     "primary-fixed-dim": "#c8c6c7",
                     "surface-container-high": "#ebe7e7",
-                    "secondary": "#5e5e63",
+                    "secondary": "#6F6F74",
                     "on-tertiary-container": "#868380",
                     "tertiary-fixed": "#e7e2dd",
                     "on-tertiary-fixed-variant": "#494644",
@@ -35,7 +35,7 @@
                     "surface-dim": "#ddd9d9",
                     "surface-container-highest": "#e5e2e1",
                     "on-secondary-fixed-variant": "#46464b",
-                    "outline-variant": "#c7c6ca",
+                    "outline-variant": "#E3E1DB",
                     "secondary-fixed": "#e3e2e7",
                     "on-error": "#ffffff",
                     "tertiary-fixed-dim": "#cac6c2",
@@ -50,21 +50,22 @@
                     "surface-container-low": "#f7f3f2",
                     "on-primary-container": "#858384",
                     "on-primary": "#ffffff",
-                    "on-background": "#1c1b1b",
+                    "on-background": "#0B0B0C",
                     "secondary-container": "#e0dfe4",
                     "error": "#ba1a1a",
                     "surface-tint": "#5f5e5f",
                     "surface-container": "#f1edec",
                     "surface-variant": "#e5e2e1",
-                    "tertiary": "#000000",
-                    "background": "#fdf8f8",
+                    "tertiary": "#0B0B0C",
+                    "background": "#F6F5F1",
                     "on-error-container": "#93000a",
-                    "on-surface": "#1c1b1b",
+                    "on-surface": "#0B0B0C",
                     "on-secondary-container": "#626267",
                     "on-tertiary-fixed": "#1d1b19",
                     "ink": "#0B0B0C",
                     "warm-paper": "#F6F5F1",
-                    "cold-cyan": "#00E5FF"
+                    "cold-cyan": "#00E5FF",
+                    "cyan-accent": "#00E5FF"
             },
             "borderRadius": {
                     "DEFAULT": "0px",
@@ -84,10 +85,22 @@
                     "headline-md": ["Hanken Grotesk"],
                     "label-caps": ["Hanken Grotesk"],
                     "display-lg": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
                     "body-md": ["Hanken Grotesk"],
                     "headline-lg": ["Hanken Grotesk"],
                     "display-xl": ["Hanken Grotesk"],
                     "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-xl": ["120px", {"lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "numeral-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.18em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["80px", {"lineHeight": "76px", "letterSpacing": "-0.03em", "fontWeight": "800"}]
             }
           },
         },
@@ -99,16 +112,32 @@
             color: #0B0B0C;
             -webkit-font-smoothing: antialiased;
         }
-        .hairline {
-            border: 0px solid transparent;
-            border-bottom-width: 1px;
-            border-color: #E3E1DB;
-        }
-        .hairline-v {
-            border: 0px solid transparent;
-            border-left-width: 1px;
-            border-color: #E3E1DB;
-        }
+        /* —— 发丝线辅助类(合并五页:不同页用了不同命名,全部保留) —— */
+        .hairline   { border: 0 solid transparent; border-bottom-width: 1px; border-color: #E3E1DB; }
+        .hairline-v { border: 0 solid transparent; border-left-width: 1px;   border-color: #E3E1DB; }
+        .hairline-x { border-top: 1px solid #E3E1DB; }
+        .hairline-y { border-left: 1px solid #E3E1DB; }
+        .hairline-b { border-bottom: 1px solid #E3E1DB; }
+        .hairline-r { border-right: 1px solid #E3E1DB; }
+        .grid-hairline-x { border-top: 1px solid #E3E1DB; }
+        .grid-hairline-y { border-left: 1px solid #E3E1DB; }
+        /* —— 点睛 / 标记 —— */
+        .cyan-dot { width: 6px; height: 6px; background-color: #00E5FF; border-radius: 50%; display: inline-block; }
+        .cyan-marker { box-shadow: 0 0 12px rgba(0, 229, 255, 0.4); }
+        .cyan-underline { border-bottom: 2px solid #00E5FF; }
+        .custom-active { border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— nav 激活态统一钩子(SPA 切换时由 JS 加/删) —— */
+        .nav-active { color: #0B0B0C; border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— roadmap 时间轴脊 —— */
+        .timeline-spine { width: 1px; background: linear-gradient(to bottom, #77777b 0%, #77777b 100%); background-size: 1px 8px; background-repeat: repeat-y; }
+        /* —— innovations duotone 图版 —— */
+        .duotone-plate { filter: grayscale(1) contrast(1.1); transition: filter 0.5s ease; }
+        .duotone-plate:hover { filter: grayscale(0.2) contrast(1.05) hue-rotate(180deg); }
+        /* —— innovations 竖向网格参考线 —— */
+        .grid-line-v { position: absolute; top: 0; bottom: 0; width: 1px; background-color: #E3E1DB; z-index: 0; }
+        /* —— Material Symbols 字重统一 —— */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        /* —— index 网格参考(订阅可视化) —— */
         .grid-guide {
             position: fixed;
             top: 0;
@@ -126,6 +155,79 @@
             border-left: 1px solid #000;
             border-right: 1px solid #000;
         }
+
+        /* —— 滚动入场编排:克制的到场,无装饰 —— */
+        /* 元素进入视口前的初始态:略微下沉 + 透明 */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        [data-reveal].is-in {
+            opacity: 1;
+            transform: none;
+        }
+        /* stagger:同组内子项依次到场,延迟由 --rd 提供 */
+        [data-reveal][style*="--rd"] {
+            transition-delay: var(--rd);
+        }
+
+        /* —— 发丝线绘制入场:线由 0 宽被"画"出来 —— */
+        [data-draw] {
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw].is-in {
+            transform: scaleX(1);
+        }
+        /* 纵向"生长":时间轴脊由上而下被画出 */
+        [data-draw-y] {
+            transform: scaleY(0);
+            transform-origin: top center;
+            transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        [data-draw-y].is-in {
+            transform: scaleY(1);
+        }
+
+        /* —— Hero 微视差:幅度极小,仅一点纵深 —— */
+        [data-parallax] {
+            will-change: transform;
+        }
+
+        /* 无障碍:用户要求减少动态时,全部关闭 */
+        @media (prefers-reduced-motion: reduce) {
+            [data-reveal],
+            [data-draw],
+            [data-draw-y] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            [data-parallax] {
+                transform: none !important;
+            }
+        }
+
+        /* —— 页面切换过渡:进场淡入 + 离场淡出(全站统一) —— */
+        /* B: 现代浏览器跨文档自动淡化(http 部署时生效,file:// 下静默回退) */
+        @view-transition { navigation: auto; }
+        /* SPA 就地替换 main 时的交叉淡化 */
+        ::view-transition-old(root),
+        ::view-transition-new(root) { animation-duration: 0.32s; }
+        /* A: 进场淡入(纯 CSS,不依赖 JS,保证内容一定可见) */
+        @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { animation: pageFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        /* A: 离场淡出(JS 在站内跳转前加 .is-leaving) */
+        body.is-leaving { opacity: 0; transition: opacity 0.16s ease; animation: none; }
+        @media (prefers-reduced-motion: reduce) {
+            body, body.is-leaving { animation: none; opacity: 1; transition: none; }
+        }
     </style>
 </head>
 <body class="font-body-md overflow-x-hidden">
@@ -141,7 +243,7 @@
 <span class="font-label-caps text-[11px] tracking-[0.2em] text-secondary">DEEPTECH FRONTIER</span>
 </div>
 <nav class="hidden md:flex items-center gap-10">
-<a class="font-label-caps text-[11px] text-primary border-b border-cold-cyan pb-1 transition-all" href="index.html">首页</a>
+<a class="font-label-caps text-[11px] nav-active transition-all" href="index.html">首页</a>
 <a class="font-label-caps text-[11px] text-secondary hover:text-primary transition-colors" href="matrix.html">技术矩阵</a>
 <a class="font-label-caps text-[11px] text-secondary hover:text-primary transition-colors" href="explore.html">探索前沿</a>
 <a class="font-label-caps text-[11px] text-secondary hover:text-primary transition-colors" href="innovations.html">创新成果</a>
@@ -158,14 +260,14 @@
 <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-32">
 <!-- Left: Hero Content (7 Columns) -->
 <div class="md:col-span-7 flex flex-col justify-end pt-12">
-<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-4 mb-8" data-reveal style="--rd:0ms">
 <span class="font-numeral-md text-[12px] text-secondary tracking-widest">DEEPTECH FRONTIER — INDEX 2026</span>
 <div class="h-[1px] w-12 bg-cold-cyan"></div>
 </div>
-<h1 class="font-display-xl text-[80px] md:text-[140px] text-ink leading-[0.9] mb-8 tracking-tighter">深蓝前沿</h1>
-<p class="font-label-caps text-secondary text-[12px] tracking-[0.25em] mb-8">EXPLORING THE NEXT TECHNOLOGICAL CIVILIZATION</p>
-<p class="font-body-lg text-secondary max-w-lg mb-12">连接人工智能、量子计算、深空探索、未来能源与智能制造。</p>
-<div class="flex items-center gap-12">
+<h1 class="font-display-xl text-[80px] md:text-[140px] text-ink leading-[0.9] mb-8 tracking-tighter" data-reveal style="--rd:80ms">深蓝前沿</h1>
+<p class="font-label-caps text-secondary text-[12px] tracking-[0.25em] mb-8" data-reveal style="--rd:160ms">EXPLORING THE NEXT TECHNOLOGICAL CIVILIZATION</p>
+<p class="font-body-lg text-secondary max-w-lg mb-12" data-reveal style="--rd:220ms">连接人工智能、量子计算、深空探索、未来能源与智能制造。</p>
+<div class="flex items-center gap-12" data-reveal style="--rd:300ms">
 <a class="font-label-caps text-ink text-[11px] border-b border-ink pb-1 group flex items-center gap-2" href="#">
                         进入技术矩阵 
                         <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
@@ -174,8 +276,8 @@
 </div>
 </div>
 <!-- Right: Hero Image (5 Columns) -->
-<div class="md:col-span-5 relative">
-<div class="p-6 border border-[#E3E1DB]">
+<div class="md:col-span-5 relative" data-reveal style="--rd:200ms">
+<div class="p-6 border border-[#E3E1DB]" data-parallax data-parallax-speed="0.08">
 <img alt="Scientific conceptual structure" class="w-full aspect-[4/5] object-cover grayscale brightness-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP2Ai0CVibudRHXJPooy4dchkmYnIzsHePHt593j2G-sFSeac_9qu065C3lUnw8lmbUY0dqhUpbjJA-rrTzXL-5br7sPHSsSRCRwmAiG69oyOCJpdZDWwxQrr717FLmeRwVZ1oBj5gSLI11PjnW8QymvT_ORV4Jx7TUG25iQ46J_GQ_MuG1ALmDve9I_Kburh_xoDBRxPxafhSFr3plmYu3JcYpKQmJ6fFq9JaplMq6WQtC7mTkwU4LElB7WN4CK5j6F_7L3-ZRyw"/>
 <div class="mt-6 flex justify-between items-end">
 <div class="flex flex-col gap-1">
@@ -192,13 +294,13 @@
 <!-- Content Strip (Four Horizontal Rows) -->
 <section class="mb-32">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-6 items-end">
-<div class="md:col-span-4">
+<div class="md:col-span-4" data-reveal>
 <h2 class="font-label-caps text-ink text-[11px] tracking-[0.3em]">THEMATIC TRACKS ／ 专题轨道</h2>
 </div>
-<div class="md:col-span-8 h-[1px] bg-ink/10"></div>
+<div class="md:col-span-8 h-[1px] bg-ink/10" data-draw></div>
 </div>
 <!-- Entry 01 -->
-<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors" data-reveal style="--rd:0ms">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
 <div class="md:col-span-1 flex items-center gap-4">
 <div class="w-2 h-2 rounded-full bg-cold-cyan"></div>
@@ -216,7 +318,7 @@
 </div>
 </div>
 <!-- Entry 02 -->
-<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors" data-reveal style="--rd:80ms">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
 <div class="md:col-span-1 flex items-center gap-4">
 <div class="w-2 h-2 rounded-full bg-cold-cyan"></div>
@@ -234,7 +336,7 @@
 </div>
 </div>
 <!-- Entry 03 -->
-<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors" data-reveal style="--rd:160ms">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
 <div class="md:col-span-1 flex items-center gap-4">
 <div class="w-2 h-2 rounded-full bg-cold-cyan"></div>
@@ -252,7 +354,7 @@
 </div>
 </div>
 <!-- Entry 04 -->
-<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors">
+<div class="hairline py-8 group cursor-pointer hover:bg-white/50 transition-colors" data-reveal style="--rd:240ms">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
 <div class="md:col-span-1 flex items-center gap-4">
 <div class="w-2 h-2 rounded-full bg-cold-cyan"></div>
@@ -272,7 +374,7 @@
 </section>
 <!-- Secondary Information / Data Section -->
 <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-24">
-<div class="md:col-span-4 p-8 border border-ink bg-ink text-warm-paper">
+<div class="md:col-span-4 p-8 border border-ink bg-ink text-warm-paper" data-reveal style="--rd:0ms">
 <h3 class="font-label-caps text-[11px] mb-8 tracking-[0.2em]">MISSION STATEMENT</h3>
 <p class="font-body-md text-[18px] leading-relaxed mb-12">
                     我们的使命是通过技术的极致探索，重塑人类与未来文明的连接。在代码与硬件的交汇处，发现下一个世代的逻辑。
@@ -283,7 +385,7 @@
 </div>
 </div>
 <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-gutter">
-<div class="p-8 border border-[#E3E1DB] flex flex-col justify-between">
+<div class="p-8 border border-[#E3E1DB] flex flex-col justify-between" data-reveal style="--rd:120ms">
 <div>
 <span class="font-label-caps text-secondary text-[10px] tracking-widest block mb-4">LATEST INSIGHT</span>
 <h4 class="font-headline-md text-[24px] mb-4">量子霸权与加密系统的终局之战</h4>
@@ -291,7 +393,7 @@
 </div>
 <a class="mt-8 font-label-caps text-ink text-[11px] underline" href="#">READ THE PAPER</a>
 </div>
-<div class="p-8 border border-[#E3E1DB] flex flex-col justify-between">
+<div class="p-8 border border-[#E3E1DB] flex flex-col justify-between" data-reveal style="--rd:200ms">
 <div>
 <span class="font-label-caps text-secondary text-[10px] tracking-widest block mb-4">SYSTEM STATUS</span>
 <div class="flex items-center gap-4 mb-4">
@@ -360,21 +462,178 @@
 </div>
 </footer>
 <script>
-        // Micro-interaction for the header visibility on scroll
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const header = document.querySelector('header');
-            
-            if (currentScroll <= 0) {
-                header.style.boxShadow = 'none';
-            } else {
-                header.style.boxShadow = '0 1px 10px rgba(0,0,0,0.02)';
-            }
-            lastScroll = currentScroll;
-        });
+        /* ===========================================================
+           DEEPTECH FRONTIER — 统一脚本(五页共用)
+           1) initPage(): 可重入,对当前 <main> 绑定滚动入场/微交互
+           2) SPA 路由器: 拦截站内导航,fetch + 就地替换 <main>,Tailwind 只编译一次 → 零 FOUC
+           渐进增强: 任一步失败都回退为普通跳转,站点永不卡死。
+           =========================================================== */
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const PAGES = ['index.html', 'matrix.html', 'explore.html', 'innovations.html', 'roadmap.html'];
 
-        // Simple ticker or dynamic text effect could go here
-        console.log("DEEPTECH FRONTIER — System Initialized");
+            // —— 可重入的页面初始化:每次内容替换后调用 ——
+            function initPage(root) {
+                root = root || document;
+
+                // 1) 入场编排 + 发丝线绘制:进入视口即到场,只触发一次
+                const animated = root.querySelectorAll('[data-reveal], [data-draw], [data-draw-y]');
+                if (reduceMotion || !('IntersectionObserver' in window)) {
+                    animated.forEach(el => el.classList.add('is-in'));
+                } else {
+                    const io = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-in');
+                                obs.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+                    animated.forEach(el => io.observe(el));
+                }
+
+                // 2) Hero 微视差:幅度极小(rAF 节流);切换走后旧监听随 main 替换被丢弃,这里只在存在时挂一次
+                const parallaxEls = Array.from(root.querySelectorAll('[data-parallax]'));
+                if (!reduceMotion && parallaxEls.length && !window.__parallaxBound) {
+                    window.__parallaxBound = true;
+                    let ticking = false;
+                    const update = () => {
+                        const y = window.pageYOffset;
+                        document.querySelectorAll('[data-parallax]').forEach(el => {
+                            const speed = parseFloat(el.dataset.parallaxSpeed) || 0.08;
+                            el.style.transform = 'translate3d(0,' + (-y * speed).toFixed(2) + 'px,0)';
+                        });
+                        ticking = false;
+                    };
+                    window.addEventListener('scroll', () => {
+                        if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+                    }, { passive: true });
+                    update();
+                }
+            }
+
+            // —— 顶栏滚动发丝线 + 各页 hover 微交互:用事件委托,绑一次永久有效 ——
+            function bindGlobalInteractions() {
+                // 顶栏:滚动时浮现一条发丝线(取代 box-shadow,守住"无阴影")
+                const headerScroll = () => {
+                    const header = document.querySelector('header, nav.sticky, body > nav');
+                    if (!header) return;
+                    header.style.boxShadow = window.pageYOffset > 0 ? 'inset 0 -1px 0 #E3E1DB' : 'none';
+                };
+                window.addEventListener('scroll', headerScroll, { passive: true });
+                headerScroll();
+
+                // matrix 状态日志表行:hover 放大冷青点(事件委托)
+                document.addEventListener('mouseover', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.add('scale-150');
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const row = e.target.closest('tbody tr');
+                    if (row) row.querySelector('.cyan-dot')?.classList.remove('scale-150');
+                });
+
+                // roadmap 里程碑:hover 标题变冷青 + 右移(事件委托)
+                document.addEventListener('mouseover', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h && group.closest('section')) {
+                        h.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                        h.classList.add('text-cyan-accent', 'translate-x-2');
+                    }
+                });
+                document.addEventListener('mouseout', (e) => {
+                    const group = e.target.closest('.timeline-spine ~ .group, section .group');
+                    if (!group) return;
+                    const h = group.querySelector('.font-headline-md');
+                    if (h) h.classList.remove('text-cyan-accent', 'translate-x-2');
+                });
+            }
+
+            // —— nav 激活态:按当前文件名高亮对应导航项 ——
+            function updateActiveNav(file) {
+                document.querySelectorAll('nav a[href$=".html"], header a[href$=".html"]').forEach(a => {
+                    const href = (a.getAttribute('href') || '').split('/').pop();
+                    if (PAGES.includes(href)) {
+                        a.classList.toggle('nav-active', href === file);
+                        a.classList.toggle('text-secondary', href !== file);
+                    }
+                });
+            }
+
+            // —— SPA 路由:fetch 目标页,就地替换 <main> + <title> ——
+            let navigating = false;
+            function currentFile() {
+                const f = location.pathname.split('/').pop();
+                return f && f.endsWith('.html') ? f : 'index.html';
+            }
+
+            function swapTo(file, push) {
+                if (navigating) return;
+                navigating = true;
+                fetch(file, { headers: { 'X-Requested-With': 'fetch' } })
+                    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+                    .then(html => {
+                        const doc = new DOMParser().parseFromString(html, 'text/html');
+                        const newMain = doc.querySelector('main');
+                        const curMain = document.querySelector('main');
+                        if (!newMain || !curMain) throw new Error('no <main>');
+
+                        const apply = () => {
+                            curMain.replaceWith(newMain);
+                            document.title = doc.title || document.title;
+                            updateActiveNav(file);
+                            window.scrollTo(0, 0);
+                            initPage(document);
+                        };
+
+                        if (document.startViewTransition && !reduceMotion) {
+                            document.startViewTransition(apply);
+                        } else {
+                            apply();
+                        }
+
+                        if (push) history.pushState({ file }, '', file);
+                        navigating = false;
+                    })
+                    .catch(() => {
+                        // 回退:fetch 不可用(如 file:// 的 CORS)→ 普通跳转
+                        navigating = false;
+                        if (!reduceMotion) document.body.classList.add('is-leaving');
+                        setTimeout(() => { window.location.href = file; }, reduceMotion ? 0 : 150);
+                    });
+            }
+
+            // 拦截站内导航点击
+            document.addEventListener('click', (e) => {
+                const a = e.target.closest('a[href$=".html"]');
+                if (!a) return;
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                if (a.target === '_blank') return;
+                const file = (a.getAttribute('href') || '').split('/').pop();
+                if (!PAGES.includes(file)) return;
+                e.preventDefault();
+                if (file === currentFile()) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+                swapTo(file, true);
+            });
+
+            // 前进 / 后退
+            window.addEventListener('popstate', () => {
+                swapTo(currentFile(), false);
+            });
+
+            // 从 bfcache 返回时清除离场态
+            window.addEventListener('pageshow', (e) => {
+                if (e.persisted) document.body.classList.remove('is-leaving');
+            });
+
+            // —— 启动 ——
+            history.replaceState({ file: currentFile() }, '', location.href);
+            bindGlobalInteractions();
+            updateActiveNav(currentFile());
+            initPage(document);
+            console.log("DEEPTECH FRONTIER — System Initialized");
+        })();
     </script>
 </body></html>

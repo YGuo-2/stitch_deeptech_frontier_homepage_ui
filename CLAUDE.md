@@ -47,26 +47,33 @@ When editing a page, treat the matching `screen.png` in its source directory as 
 
 ## Viewing / "running"
 
-There is nothing to build. Open `index.html` directly in a browser (e.g. on Windows: `start index.html`) and use the top nav to move between the five pages. Tailwind compiles in-browser via `https://cdn.tailwindcss.com`, so an internet connection is required for styling and fonts to load.
+There is nothing to build. For a quick look, open `index.html` directly (e.g. on Windows: `start index.html`) — every page still works standalone over `file://`, and Tailwind compiles in-browser via `https://cdn.tailwindcss.com` (internet required for styling/fonts).
+
+**To experience the real navigation (zero-flicker SPA transitions), serve over HTTP**, not `file://`. The in-page router uses `fetch`, which the browser blocks under `file://` (CORS) — there it silently falls back to ordinary full-page navigation (the fade-out/in). Start a local server from the project root:
+
+```
+python -m http.server 8000
+```
+
+then open `http://localhost:8000/index.html`.
 
 ## Architecture & conventions
 
-These files share a deliberate, rigid structure. When editing or adding screens, match it exactly:
+The five root pages were originally independent Stitch exports, but have since been **unified into a pseudo-SPA**: they now share a byte-identical `<head>` (Tailwind config + `<style>`) and an identical trailing `<script>`, so clicking the nav swaps only `<main>` in place (Tailwind compiles once → no FOUC flicker). When editing, preserve this shared structure.
 
-- **Single-file pages.** Each page is `<head>` (Tailwind config + a small `<style>` block) followed by `<body>` containing `<nav>/<header>` → `<main>` → `<footer>`, and an optional trailing `<script>` for minor micro-interactions only. No external CSS/JS files.
-- **Tailwind config is inlined** in a `<script id="tailwind-config">` block per file. The Material-Design color tokens (`surface`, `on-surface`, `outline-variant`, etc.), the custom `spacing` tokens (`margin-desktop: 96px`, `gutter: 24px`, `unit: 8px`, `columns: 12`), and the custom `fontFamily`/`fontSize` scale (`display-xl`, `headline-md`, `numeral-md`, `label-caps`, etc.) are duplicated into each file. Edit the config in the file you're working on; there is no shared config to import.
-- **Design language is Swiss International Style / subtractive minimalism** (see `DESIGN.md`): strictly flat (no shadows/blurs), sharp 0px corners, 1px hairline borders (`#E3E1DB` / `outline-variant`) instead of elevation, a strict 12-column grid (`grid-cols-12 gap-gutter`) with 96px desktop margins, asymmetric layout (content on cols 1–7/8, meta/whitespace on the rest).
+- **Each page is still a complete, standalone HTML file** — `<head>` → `<body>` with `<nav>/<header>` → `<main>` → `<footer>` → unified `<script>`. No external CSS/JS files. Direct-loading any page works; the SPA is a progressive enhancement layered on top.
+- **The `<head>` is now identical across all five pages** — same inlined `tailwind.config` (the union of every page's tokens) and same `<style>` block (all hairline/accent/animation helper classes merged). **When you change the config or a shared style, apply the exact same edit to all five files** so the SPA's single-compile assumption holds. There is still no build-time shared include — the duplication is intentional and must stay in sync.
+- **The trailing `<script> is identical across all five pages.** It defines `initPage()` (re-entrant: scroll-reveal observers, hairline-draw, hero parallax — re-run after each `<main>` swap), `bindGlobalInteractions()` (header hairline-on-scroll, plus matrix table-row and roadmap milestone hovers via event delegation), and the SPA router (`fetch` → `DOMParser` → replace `<main>` + `<title>` + active nav, `history.pushState`, `popstate` for back/forward, wrapped in `document.startViewTransition` when available). **Any failure (e.g. `file://` CORS) falls back to a normal `window.location` navigation** — the site never breaks.
+- **Scroll & page-transition motion** is deliberately restrained per the design spec (§0/§7): `[data-reveal]` (fade+rise), `[data-draw]`/`[data-draw-y]` (hairlines drawn in), tiny hero parallax, and a cross-fade on page swap. All gated behind `prefers-reduced-motion`.
+- **Design language is Swiss International Style / subtractive minimalism**: strictly flat (no shadows/blurs), sharp 0px corners, 1px hairline borders (`#E3E1DB` / `outline-variant`) instead of elevation, a strict 12-column grid (`grid-cols-12 gap-gutter`) with 96px desktop margins, asymmetric layout (content on cols 1–7/8, meta/whitespace on the rest).
 - **Typography carries the brand.** Hanken Grotesk for everything except technical data, dates, coordinates, and figure refs, which use JetBrains Mono via the `font-numeral-md` class. Labels/sub-labels use `font-label-caps` with wide tracking (`tracking-[0.18em]`–`[0.3em]`) and uppercase.
-- **Accent color discipline.** Cold Cyan (`#00E5FF` / `cold-cyan`) is the only accent and must stay under ~5% of any view — used for active nav underlines, status dots, and small rules. Do not add gradients, glows, or new accent colors.
+- **Accent color discipline.** Cold Cyan is the only accent and must stay under ~5% of any view — active nav underline, status dots, small rules. The codebase uses `#00E5FF` (exposed as both `cold-cyan` and `cyan-accent` tokens, which now point to the same value). **Note:** the design spec (`DEEPTECH-FRONTIER-design-system.md`) mandates `#16B9A6`; the site intentionally stays on `#00E5FF` per an explicit owner decision. Do not add gradients, glows, or new accent colors.
+- **Active nav** is a single shared hook: the `.nav-active` class (2px `#00E5FF` underline). The router toggles it by filename on load and on every swap. All five pages' nav `<a>`s use it — do not reintroduce per-page active markers.
 - **Content is bilingual** Chinese + English (page `lang="zh-CN"`): a Chinese headline paired with an uppercase English `label-caps` descriptor is the standard pattern.
 
-### Inconsistencies to be aware of
+### Editing rules (post-unification)
 
-The screens were generated independently and have drifted, so do not assume one file's setup matches another:
-
-- `borderRadius` is `0px` in `homepage_mockup` (correct per the sharp-corners spec) but `0.25rem`/`0.5rem` in `explore_the_frontier_fixed`. Prefer 0px for new work.
-- Custom semantic tokens `ink` (`#0B0B0C`), `warm-paper` (`#F6F5F1`), `cold-cyan` (`#00E5FF`) are defined in `homepage_mockup` but **not** in `explore_the_frontier_fixed`, which instead styles against the Material tokens (`primary`, `surface`, `outline-variant`). Check which token set a file uses before adding classes.
-- Hairline helper classes differ by file (`.hairline`/`.hairline-v` vs `.hairline-x`/`.hairline-y` vs `.grid-hairline-x`/`.grid-hairline-y`). Reuse whatever the target file already defines.
-- **The "active" nav marker differs per page** — there is no shared component. `index.html` uses `border-cold-cyan`, `matrix.html` uses `border-[#16B9A6]`, `explore.html` uses a `.custom-active` class, `innovations.html` uses `border-primary`, `roadmap.html` uses `border-cyan-accent`. When adding a nav item or touching the active state, match the convention already in that file.
-
-When making a change consistent across all pages (e.g. a nav item, a footer link), apply it to each root `.html` file individually — there is no shared include or template. The nav `href`s are the one thing already wired up across all five (`index`/`matrix`/`explore`/`innovations`/`roadmap`.html); keep them intact when editing the nav.
+- **A change to `<head>` or `<script>` must be replicated verbatim across all five files.** They are intentionally identical; if they drift, the SPA swap will mis-render (a swapped-in `<main>` is styled by the *host* page's config). After editing, diff the five `<head>`/`<script>` blocks to confirm they still match.
+- **`<main>` is the only swap target** — keep exactly one `<main>…</main>` per page. Per-page content, layout, and `data-reveal`/`data-draw` markup live inside `<main>` and may differ freely.
+- **`nav`/`footer` DOM is left per-page** (not yet unified); only the `.nav-active` hook and the five nav `href`s are shared. Keep the five `href`s (`index`/`matrix`/`explore`/`innovations`/`roadmap`.html) intact — the router keys off them.
+- All other `href="#"` links (footer, body CTAs) remain placeholders by design; the router ignores them.
