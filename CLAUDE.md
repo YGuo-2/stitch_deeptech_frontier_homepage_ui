@@ -36,6 +36,9 @@ These five files are the integrated site. They are copies of the original Stitch
 
 The top nav appears on every page with the same five items; each page highlights its own item as "active" using a per-page style (see the active-marker note below). Only the five nav `<a href>`s point to real files — all other `href="#"` links (footer, body links) are still placeholders by design.
 
+**Brand name:** the homepage hero / wordmark / footer now read **`Information / Frontier`** (the old `深蓝前沿` was replaced; `DEEPTECH FRONTIER` remains as the uppercase English sub-mark). The design spec's §1 was updated to match. Subpages keep `DEEPTECH FRONTIER` as their wordmark.
+
+
 ### Original Stitch sources (archive) — do not treat as live
 
 All six original Stitch export directories live under `原始素材/` (gitignored — local only, not published):
@@ -44,6 +47,10 @@ All six original Stitch export directories live under `原始素材/` (gitignore
 - `原始素材/deeptech_frontier_homepage_mockup/`, `原始素材/deeptech_frontier_technology_matrix_optimized/`, `原始素材/deeptech_frontier_explore_the_frontier_fixed/`, `原始素材/deeptech_frontier_innovations/`, `原始素材/deeptech_frontier_future_roadmap/` — each holds the original `code.html` plus a `screen.png` reference render.
 
 When editing a page, treat the matching `screen.png` in its source directory as the visual target. If you change design (not just links), keep the root file and its archived `code.html` in sync, or note the divergence.
+
+### Current-state screenshots
+
+`screenshots/` holds one full-page render per live page (`index.png`, `matrix.png`, `explore.png`, `innovations.png`, `roadmap.png`) — captured at 1440px width / 2× density with all scroll-reveal animations already triggered (final, fully-revealed state). These reflect the **current** integrated site after the brand rename + metal-title work, unlike the archived `原始素材/**/screen.png` which show the pre-integration Stitch originals. Regenerate them after visual changes by serving locally and screenshotting each page full-page.
 
 ## Viewing / "running"
 
@@ -67,6 +74,7 @@ The five root pages were originally independent Stitch exports, but have since b
 - **Scroll & page-transition motion** is deliberately restrained per the design spec (§0/§7): `[data-reveal]` (fade+rise), `[data-draw]`/`[data-draw-y]` (hairlines drawn in), tiny hero parallax, and a cross-fade on page swap. All gated behind `prefers-reduced-motion`.
 - **Design language is Swiss International Style / subtractive minimalism**: strictly flat (no shadows/blurs), sharp 0px corners, 1px hairline borders (`#E3E1DB` / `outline-variant`) instead of elevation, a strict 12-column grid (`grid-cols-12 gap-gutter`) with 96px desktop margins, asymmetric layout (content on cols 1–7/8, meta/whitespace on the rest).
 - **Typography carries the brand.** Hanken Grotesk for everything except technical data, dates, coordinates, and figure refs, which use JetBrains Mono via the `font-numeral-md` class. Labels/sub-labels use `font-label-caps` with wide tracking (`tracking-[0.18em]`–`[0.3em]`) and uppercase.
+- **Hero / masthead display titles use a brushed-metal treatment** via the shared `.metal-text` class — a silver-grey vertical gradient + faint vertical brush stripes clipped to the text (`background-clip:text`), near-grayscale to fit the §8 "brushed aluminum" material DNA (no saturated color). It is gated behind `@supports (background-clip:text)` and falls back to ink `#0B0B0C`. Applied **only to the largest titles** (homepage hero `Information / Frontier`, and each subpage's `display-lg` masthead title) where the heavy weight lets the gradient read; never on nav/footer/body text where thin strokes would muddy it. The class lives in the shared `<style>`, so it must stay identical across all five files.
 - **Accent color discipline.** Cold Cyan is the only accent and must stay under ~5% of any view — active nav underline, status dots, small rules. The codebase uses `#00E5FF` (exposed as both `cold-cyan` and `cyan-accent` tokens, which now point to the same value). **Note:** the design spec (`DEEPTECH-FRONTIER-design-system.md`) mandates `#16B9A6`; the site intentionally stays on `#00E5FF` per an explicit owner decision. Do not add gradients, glows, or new accent colors.
 - **Active nav** is a single shared hook: the `.nav-active` class (2px `#00E5FF` underline). The router toggles it by filename on load and on every swap. All five pages' nav `<a>`s use it — do not reintroduce per-page active markers.
 - **Content is bilingual** Chinese + English (page `lang="zh-CN"`): a Chinese headline paired with an uppercase English `label-caps` descriptor is the standard pattern.

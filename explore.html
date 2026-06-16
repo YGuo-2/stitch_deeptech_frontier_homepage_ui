@@ -126,6 +126,19 @@
         .custom-active { border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
         /* —— nav 激活态统一钩子(SPA 切换时由 JS 加/删) —— */
         .nav-active { color: #0B0B0C; border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— 金属拉丝质感标题(hero 大标题用;近灰度,呼应 §8 拉丝铝材质) —— */
+        .metal-text { color: #0B0B0C; }
+        @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+            .metal-text {
+                background-image:
+                    repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0, rgba(0,0,0,0.09) 1.5px, rgba(255,255,255,0.12) 3px),
+                    linear-gradient(180deg, #fafafa 0%, #b4b4b4 15%, #404040 39%, #9c9c9c 50%, #1f1f1f 61%, #787878 83%, #f0f0f0 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+            }
+        }
         /* —— roadmap 时间轴脊 —— */
         .timeline-spine { width: 1px; background: linear-gradient(to bottom, #77777b 0%, #77777b 100%); background-size: 1px 8px; background-repeat: repeat-y; }
         /* —— innovations duotone 图版 —— */
@@ -221,7 +234,7 @@
 <header class="mt-24 mb-32 grid grid-cols-12 gap-gutter">
 <div class="col-span-12 md:col-span-8">
 <div class="font-numeral-md text-numeral-md text-secondary tracking-widest mb-6" data-reveal style="--rd:0ms">THE FRONTIER — DISPATCHES &amp; RESEARCH</div>
-<h1 class="font-display-lg text-display-lg leading-none mb-8" data-reveal style="--rd:80ms">探索前沿</h1>
+<h1 class="metal-text font-display-lg text-display-lg leading-none mb-8" data-reveal style="--rd:80ms">探索前沿</h1>
 <p class="font-body-lg text-body-lg text-secondary max-w-xl" data-reveal style="--rd:160ms">
                     来自实验室前线的研究手记、深度专题与技术观察。我们追踪那些处于爆发边缘的学科交叉点，记录文明演进的底层代码。
                 </p>

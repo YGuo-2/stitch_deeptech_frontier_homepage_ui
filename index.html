@@ -3,7 +3,7 @@
 <html class="light" lang="zh-CN"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>DEEPTECH FRONTIER — 深蓝前沿</title>
+<title>Information Frontier — DEEPTECH FRONTIER</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -128,6 +128,19 @@
         .custom-active { border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
         /* —— nav 激活态统一钩子(SPA 切换时由 JS 加/删) —— */
         .nav-active { color: #0B0B0C; border-bottom: 2px solid #00E5FF; padding-bottom: 4px; }
+        /* —— 金属拉丝质感标题(hero 大标题用;近灰度,呼应 §8 拉丝铝材质) —— */
+        .metal-text { color: #0B0B0C; }
+        @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+            .metal-text {
+                background-image:
+                    repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0, rgba(0,0,0,0.09) 1.5px, rgba(255,255,255,0.12) 3px),
+                    linear-gradient(180deg, #fafafa 0%, #b4b4b4 15%, #404040 39%, #9c9c9c 50%, #1f1f1f 61%, #787878 83%, #f0f0f0 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+            }
+        }
         /* —— roadmap 时间轴脊 —— */
         .timeline-spine { width: 1px; background: linear-gradient(to bottom, #77777b 0%, #77777b 100%); background-size: 1px 8px; background-repeat: repeat-y; }
         /* —— innovations duotone 图版 —— */
@@ -239,7 +252,7 @@
 <header class="sticky top-0 w-full z-50 bg-[#F6F5F1] hairline">
 <div class="max-w-screen-2xl mx-auto px-6 md:px-margin-desktop h-16 flex items-center justify-between">
 <div class="flex flex-col md:flex-row md:items-baseline md:gap-3">
-<span class="font-headline-md text-[18px] tracking-tight text-ink">深蓝前沿</span>
+<span class="font-headline-md text-[18px] tracking-tight text-ink">Information Frontier</span>
 <span class="font-label-caps text-[11px] tracking-[0.2em] text-secondary">DEEPTECH FRONTIER</span>
 </div>
 <nav class="hidden md:flex items-center gap-10">
@@ -264,7 +277,7 @@
 <span class="font-numeral-md text-[12px] text-secondary tracking-widest">DEEPTECH FRONTIER — INDEX 2026</span>
 <div class="h-[1px] w-12 bg-cold-cyan"></div>
 </div>
-<h1 class="font-display-xl text-[80px] md:text-[140px] text-ink leading-[0.9] mb-8 tracking-tighter" data-reveal style="--rd:80ms">深蓝前沿</h1>
+<h1 class="metal-text font-display-xl font-extrabold text-[40px] md:text-[80px] leading-[0.85] mb-8 tracking-tight inline-flex items-stretch" data-reveal style="--rd:80ms"><span class="self-start">Information</span><span class="font-thin self-center leading-none text-[2em] mx-1 md:mx-2">/</span><span class="self-end">Frontier</span></h1>
 <p class="font-label-caps text-secondary text-[12px] tracking-[0.25em] mb-8" data-reveal style="--rd:160ms">EXPLORING THE NEXT TECHNOLOGICAL CIVILIZATION</p>
 <p class="font-body-lg text-secondary max-w-lg mb-12" data-reveal style="--rd:220ms">连接人工智能、量子计算、深空探索、未来能源与智能制造。</p>
 <div class="flex items-center gap-12" data-reveal style="--rd:300ms">
@@ -416,7 +429,7 @@
 <footer class="w-full mt-24 border-t border-[#E3E1DB]">
 <div class="max-w-screen-2xl mx-auto px-6 md:px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-start gap-gutter">
 <div class="flex flex-col gap-4">
-<span class="font-headline-md text-[24px] text-ink">深蓝前沿</span>
+<span class="font-headline-md text-[24px] text-ink">Information Frontier</span>
 <p class="font-label-caps text-secondary text-[10px] max-w-xs leading-relaxed">
                     © 2024 DEEPTECH FRONTIER. ALL RIGHTS RESERVED. <br/>
                     DESIGNED IN THE SWISS INTERNATIONAL STYLE.
